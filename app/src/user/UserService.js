@@ -2,10 +2,10 @@
  * Service that will fetch the user credentials from the database.
  * @param $q
  * @param $rootScope
- * @param User
+ * @param Restangular
  * @param USER_EVENTS
  */
-var UserService = function($q, $rootScope, User, USER_EVENTS) {
+var UserService = function($q, $rootScope, Restangular, USER_EVENTS) {
 
     // Promise that will always return the currently found user.
     var deferred = null;
@@ -20,10 +20,7 @@ var UserService = function($q, $rootScope, User, USER_EVENTS) {
     UserService.getUser = function() {
         if (deferred === null) {
             deferred = $q(function(resolve, reject) {
-                var user = User.get({}, function() {
-                    $rootScope.$broadcast(USER_EVENTS.USER_DEFINED, user);
-                    resolve(user);
-                });
+                resolve(Restangular.one('self').get());
             });
         }
 
@@ -53,4 +50,4 @@ var UserService = function($q, $rootScope, User, USER_EVENTS) {
 };
 
 angular.module('user')
-    .factory('UserService', ['$q', '$rootScope', 'User', 'USER_EVENTS', UserService]);
+    .factory('UserService', ['$q', '$rootScope', 'Restangular', 'USER_EVENTS', UserService]);

@@ -2,7 +2,7 @@
  * Module definition file.
  */
 
-angular.module('bowling', ['bowling.core', 'bowling.entry', 'login'])
+angular.module('bowling', ['bowling.core', 'bowling.entry', 'login', 'restangular'])
     .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/');
 
@@ -18,4 +18,9 @@ angular.module('bowling', ['bowling.core', 'bowling.entry', 'login'])
 
         LoginServiceProvider.loginUrl = 'http://127.0.0.1:8000/api-token-auth/';
         LoginServiceProvider.refreshUrl = 'http://127.0.0.1:8000/api-token-refresh/';
+    }]).config(['RestangularProvider', function(RestangularProvider) {
+
+        RestangularProvider.setBaseUrl('http://127.0.0.1:8000/bowling/api');
+        RestangularProvider.setRequestSuffix('/');
+
     }]);

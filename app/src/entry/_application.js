@@ -2,5 +2,5 @@
  * Bowling Entry application definition.
  */
 
-angular.module('bowling.entry', ['bowling.entry.league']);
+angular.module('bowling.entry', ['bowling.entry.core']);
 

@@ -2,7 +2,7 @@
  * Definition of a user fetching service.
  */
 
-angular.module('user', [])
+angular.module('user', ['restangular'])
     .constant('USER_EVENTS', {
         /**
          * Event fired off when a user is loaded successfully from the back-end.

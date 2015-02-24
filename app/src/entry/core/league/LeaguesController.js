@@ -3,14 +3,16 @@
  * currently logged in user.
  */
 
-var LeaguesController = function(BowlingEntryLeague) {
+var LeaguesController = function(LeagueService) {
     var controller = this;
 
-    controller.leagues = BowlingEntryLeague.query();
+    LeagueService.getAll().then(function(leagues) {
+        controller.leagues = leagues;
+    });
 };
 
-angular.module('bowling.entry.league')
-    .controller('LeaguesController', ['BowlingEntryLeague', LeaguesController])
+angular.module('bowling.entry.core')
+    .controller('LeaguesController', ['LeagueService', LeaguesController])
     .config(['$stateProvider', function($stateProvider) {
 
         $stateProvider.state('bowling_entry_leagues', {

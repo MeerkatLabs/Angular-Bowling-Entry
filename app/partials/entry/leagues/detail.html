@@ -1,0 +1,28 @@
+
+<p>League Details: {{ leagueController.league.name }}</p>
+
+<h1>Teams</h1>
+<md-list flex>
+    <md-item ng-repeat="team in leagueController.league.teams">
+        <md-item-content>
+            <div class="md-tile-content">
+                <h3>{{team.name}}</h3>
+                <p><a ui-sref="bowling_entry_league_details({leagueId:team.id})">Team Details</a></p>
+            </div>
+        </md-item-content>
+        <md-divider ng-if="!$last"></md-divider>
+    </md-item>
+</md-list>
+
+<h1>Weeks</h1>
+<md-list flex>
+    <md-item ng-repeat="week in leagueController.league.weeks">
+        <md-item-content>
+            <div class="md-tile-content">
+                <h3>{{week.date}}</h3>
+                <p><a ui-sref="bowling_entry_league_details({leagueId:team.id})">Week Details</a></p>
+            </div>
+        </md-item-content>
+        <md-divider ng-if="!$last"></md-divider>
+    </md-item>
+</md-list>
