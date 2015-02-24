@@ -1,0 +1,23 @@
+<md-bottom-sheet class="md-list md-has-header">
+    <md-subheader>Login</md-subheader>
+
+
+
+    <form ng-submit="loginController.submit()">
+
+        <md-input-container md-is-error="loginController.error">
+            <label>Username</label>
+            <input type="text" ng-model="loginController.userName" ng-required="true">
+            <div ng-messages="loginController.error">
+                <div ng-message="login">You have provided an incorrect login/password.</div>
+            </div>
+        </md-input-container>
+
+        <md-input-container>
+            <label>Password</label>
+            <input type="password" ng-model="loginController.password" ng-required="true">
+        </md-input-container>
+
+        <md-button class="md-raised md-primary">Login</md-button>
+    </form>
+</md-bottom-sheet>
