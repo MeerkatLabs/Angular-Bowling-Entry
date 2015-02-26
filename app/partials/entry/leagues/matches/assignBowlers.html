@@ -1,0 +1,23 @@
+<h1>
+    Assign Bowlers
+</h1>
+
+<div layout="column">
+
+    <div ng-repeat="i in assignBowlers.currentBowlers track by $index">
+        <p>Bowler: {{ $index+1 }}</p>
+
+        <select ng-model="i.val"
+                ng-options="bowler.name for bowler in assignBowlers.availableBowlersArray">
+        </select>
+
+        <select ng-model="i.type"
+                ng-options="type for type in ['regular', 'substitute', 'blind', 'vacant']"></select>
+
+    </div>
+
+    <div flex>
+        <md-button class="md-raised md-primary" ng-click="assignBowlers.submit()">Submit</md-button>
+    </div>
+
+</div>

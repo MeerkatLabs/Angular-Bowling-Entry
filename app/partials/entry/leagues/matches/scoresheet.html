@@ -1,12 +1,18 @@
 <h1>Score Sheet</h1>
 
 <div layout="row">
-    <div flex>
+    <div layout="column" flex>
         <score-sheet league="scoreController.league" team="scoreController.scoreSheet.team1"></score-sheet>
+        <div>
+            <a ui-sref="bowling_entry_league_week_match_assign_bowlers({leagueId: scoreController.league.id, weekId: scoreController.week.id, matchId: scoreController.scoreSheet.id, teamId: 1})">Assign Bowlers</a>
+        </div>
     </div>
 
-    <div flex>
+    <div flex layout="column">
         <score-sheet league="scoreController.league" team="scoreController.scoreSheet.team2"></score-sheet>
+        <div>
+            <a ui-sref="bowling_entry_league_week_match_assign_bowlers({leagueId: scoreController.league.id, weekId: scoreController.week.id, matchId: scoreController.scoreSheet.id, teamId: 2})">Assign Bowlers</a>
+        </div>
     </div>
 </div>
 

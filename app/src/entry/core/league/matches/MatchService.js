@@ -19,6 +19,26 @@ var MatchServiceFactory = function() {
 
     };
 
+    MatchService.assignBowlers = function(configuration, match) {
+
+        var teamNumber = configuration.teamNumber;
+
+        var encodedConfiguration = {
+            bowlers: []
+        };
+
+        configuration.bowlers.forEach(function(bowlerConfig) {
+           encodedConfiguration.bowlers.push({
+                id: bowlerConfig.id,
+                definition: bowlerConfig.val.id,
+                type: bowlerConfig.type
+           });
+        });
+
+        return match.one('matchTeam', teamNumber).customPUT(encodedConfiguration);
+
+    };
+
     return MatchService;
 
 };

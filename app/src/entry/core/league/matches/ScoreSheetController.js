@@ -9,6 +9,8 @@ var ScoresheetController = function(league, week, scoreSheet) {
     var controller = this;
     controller.scoreSheet = scoreSheet;
     controller.league = league;
+    controller.week = week;
+    controller.match = scoreSheet;
 
 };
 
