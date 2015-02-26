@@ -16,9 +16,9 @@
             <td>{{ bowler.handicap }}</td>
             <td>{{ bowler.name }}</td>
             <td>{{ bowler.type }}</td>
-            <td></td>
+            <td>{{ bowler.average }}</td>
             <td ng-repeat="game in bowler.games track by $index">{{ game.total }}</td>
-            <td></td>
+            <td>{{ bowler.total }}</td>
         </tr>
         <tr>
             <td colspan="2" style="background: lightgray"></td>
