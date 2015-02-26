@@ -2,7 +2,7 @@
  * Controller that shows the details of a match and allows for the user to select which bowlers to override for the
  * game.
  */
-var ScoresheetController = function(league, week, scoreSheet) {
+var ScoresheetController = function(league, week, match, scoreSheet) {
 
     console.log('Scoresheet', scoreSheet);
 
@@ -12,10 +12,14 @@ var ScoresheetController = function(league, week, scoreSheet) {
     controller.week = week;
     controller.match = scoreSheet;
 
+    controller.submit = function() {
+        match.one('scoresheet').customPUT(scoreSheet);
+    };
+
 };
 
 angular.module('bowling.entry.core')
-    .controller('ScoresheetController', ['league', 'week', 'scoreSheet', ScoresheetController])
+    .controller('ScoresheetController', ['league', 'week', 'match', 'scoreSheet', ScoresheetController])
     .config(['$stateProvider', function($stateProvider) {
 
         $stateProvider.state('bowling_entry_league_week_match_scoresheet', {
@@ -34,10 +38,11 @@ angular.module('bowling.entry.core')
                 week: ['$stateParams', 'league', function($stateParams, league) {
                     return league.getWeek($stateParams.weekId);
                 }],
-                scoreSheet: ['$stateParams', 'week', function($stateParams, week) {
-                    return week.getMatch($stateParams.matchId).then(function(match) {
-                        return match.getScoreSheet();
-                    });
+                match: ['$stateParams', 'week', function($stateParams, week) {
+                    return week.getMatch($stateParams.matchId);
+                }],
+                scoreSheet: ['match', function(match) {
+                    return match.getScoreSheet();
                 }]
             }
         });

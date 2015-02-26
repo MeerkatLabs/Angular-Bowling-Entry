@@ -1,6 +1,6 @@
 
-<p>{{ team().name }}</p>
-<table>
+<p>{{ name }}</p>
+<table flex>
     <thead>
         <tr>
             <th>Average</th>
@@ -12,12 +12,17 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="bowler in team().bowlers">
-            <td>{{ bowler.handicap }}</td>
+        <tr ng-repeat="bowler in bowlers">
+            <td>{{ bowler.average }}</td>
             <td>{{ bowler.name }}</td>
             <td>{{ bowler.type }}</td>
-            <td>{{ bowler.average }}</td>
-            <td ng-repeat="game in bowler.games track by $index">{{ game.total }}</td>
+            <td>{{ bowler.handicap }}</td>
+            <td ng-repeat="game in bowler.games track by $index" flex="5">
+                <md-input-container>
+                    <input type="number" ng-model="bowler.games[$index]" ng-model-options="{updateOn: 'blur'}"
+                            ng-change="update()">
+                </md-input-container>
+            </td>
             <td>{{ bowler.total }}</td>
         </tr>
         <tr>
