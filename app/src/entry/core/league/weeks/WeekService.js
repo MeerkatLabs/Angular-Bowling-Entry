@@ -34,6 +34,10 @@ angular.module('bowling.entry.core')
                 return this.all('matches').getList();
             };
 
+            model.getMatch = function(matchId) {
+                return this.one('matches', matchId).get();
+            };
+
             return model;
 
         });

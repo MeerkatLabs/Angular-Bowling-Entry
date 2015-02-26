@@ -1,0 +1,42 @@
+
+<p>{{ team().name }}</p>
+<table>
+    <thead>
+        <tr>
+            <th>Average</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>HDCP</th>
+            <th ng-repeat="label in gameLabels track by $index">{{ label }}</th>
+            <th>Totals</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="bowler in team().bowlers">
+            <td>{{ bowler.handicap }}</td>
+            <td>{{ bowler.name }}</td>
+            <td>{{ bowler.type }}</td>
+            <td></td>
+            <td ng-repeat="game in bowler.games track by $index">{{ game.total }}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="background: lightgray"></td>
+            <th colspan="2">Scratch Subtotal</th>
+            <td class="text-center" ng-repeat="subtotal in subTotals track by $index">{{subtotal}}</td>
+            <td class="text-center">{{ seriesScratch }}</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="background: lightgray"></td>
+            <th colspan="2">Team Handicap</th>
+            <td class="text-center" ng-repeat="label in gameLabels track by $index">{{ teamHandicap }}</td>
+            <td class="text-center">{{ teamHandicap * league().number_of_games }}</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="background: lightgray"></td>
+            <th colspan="2">Totals</th>
+            <td class="text-center" ng-repeat="total in totals track by $index">{{ total }}</td>
+            <td class="text-center">{{ teamHandicap * league().number_of_games + seriesScratch }}</td>
+        </tr>
+    </tbody>
+</table>

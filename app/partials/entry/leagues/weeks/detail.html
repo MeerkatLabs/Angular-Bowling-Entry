@@ -14,7 +14,7 @@
             <md-item-content>
                 <div class="md-tile-content">
                     <h3>{{match.lanes}}</h3>
-                    <p>{{ match.team1.name }} vs. {{ match.team2.name }}</p>
+                    <p><a ui-sref="bowling_entry_league_week_match_scoresheet({leagueId: weekController.league.id, weekId: weekController.week.id, matchId: match.id})">{{ match.team1.name }} vs. {{ match.team2.name }}</a></p>
                 </div>
             </md-item-content>
             <md-divider ng-if="!$last"></md-divider>

@@ -26,5 +26,12 @@ var MatchServiceFactory = function() {
 angular.module('bowling.entry.core')
     .factory('MatchService', [MatchServiceFactory])
     .config(['RestangularProvider', function(RestangularProvider) {
+        RestangularProvider.extendModel('matches', function(model) {
 
+            model.getScoreSheet = function() {
+                return this.one('scoresheet').get();
+            };
+
+            return model;
+        });
     }]);
