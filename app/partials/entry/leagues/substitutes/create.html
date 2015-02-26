@@ -1,0 +1,17 @@
+<h1>Substitute</h1>
+
+<form ng-submit="subController.submit()">
+
+    <md-input-container>
+        <label>Name</label>
+        <input ng-model="subController.substitute.name" type="text">
+    </md-input-container>
+
+    <md-input-container>
+        <label>Handicap</label>
+        <input ng-model="subController.substitute.handicap" type="number">
+    </md-input-container>
+
+    <md-button class="md-raised md-primary">Submit</md-button>
+
+</form>

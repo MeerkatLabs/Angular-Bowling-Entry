@@ -69,6 +69,7 @@ var LoginService = function($http, $interval, $injector, $q, $rootScope, $window
      * @returns {*|Promise}
      */
     var refreshToken = function() {
+        console.log('Refreshing token');
         return $http({
             method: 'POST',
             url: REFRESH_URL,
@@ -138,6 +139,13 @@ var LoginService = function($http, $interval, $injector, $q, $rootScope, $window
                 console.log('Returning refreshed token');
                 return $window.localStorage.getItem('jwtToken');
             });
+        } else if (refreshPromise === null) {
+            // Refresh the token if the promise doesn't exist.
+            console.log('Refreshing token');
+            return refreshToken().then(function() {
+                console.log('Returning refreshed token');
+                return $window.localStorage.getItem('jwtToken');
+            });
         } else {
             return token;
         }
@@ -152,6 +160,7 @@ var LoginService = function($http, $interval, $injector, $q, $rootScope, $window
         $window.localStorage.setItem('jwtToken', _token);
 
         if (refreshPromise === null) {
+            console.log('Registering refresh timer');
             refreshPromise = $interval(function() { refreshToken(); }, LOGIN_REFRESH_TIME);
         }
 

@@ -1,0 +1,23 @@
+<h1>Week Detail</h1>
+
+<p>Week: {{ weekController.week }}</p>
+
+<p>League: {{ weekController.league }}</p>
+
+<p>Matches: {{ weekController.matches }}</p>
+
+<p><a ui-sref="bowling_entry_league_week_create_match({leagueId: weekController.league.id, weekId: weekController.week.id})">Create Match</a></p>
+
+<div layout="row">
+    <md-list flex>
+        <md-item ng-repeat="match in weekController.matches">
+            <md-item-content>
+                <div class="md-tile-content">
+                    <h3>{{match.lanes}}</h3>
+                    <p>{{ match.team1.name }} vs. {{ match.team2.name }}</p>
+                </div>
+            </md-item-content>
+            <md-divider ng-if="!$last"></md-divider>
+        </md-item>
+    </md-list>
+</div>

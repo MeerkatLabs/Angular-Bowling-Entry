@@ -1,0 +1,12 @@
+<p>Create Weeks</p>
+
+<form ng-submit="create.submit()">
+
+    <md-input-container ng-repeat="week in create.weeks">
+        <label>Week Number: {{ week.weekNumber }}</label>
+        <input ng-model="week.date" type="date">
+    </md-input-container>
+
+    <md-button class="md-raised md-primary">Submit</md-button>
+
+</form>

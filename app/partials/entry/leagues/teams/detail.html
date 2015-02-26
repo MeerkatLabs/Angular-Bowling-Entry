@@ -1,0 +1,33 @@
+
+<p>{{ teamController.team }}</p>
+
+<p>{{ teamController.team.name }}</p>
+
+
+<div layout="row">
+    <div flex>
+        <md-list flex>
+            <md-item ng-repeat="bowler in teamController.bowlers">
+                <md-item-content>
+                    <div class="md-tile-content">
+                        <h3>{{bowler.name}}</h3>
+                        <p><a>Bowler Details</a></p>
+                        <p><a ui-sref="bowling_entry_edit_bowler({leagueId:teamController.league.id, teamId: teamController.team.id, bowlerId: bowler.id})">Edit Bowler</a></p>
+                        <p>{{ bowler }}</p>
+                    </div>
+                </md-item-content>
+                <md-divider ng-if="!$last"></md-divider>
+            </md-item>
+        </md-list>
+    </div>
+
+    <div flex>
+        <md-list>
+            <md-item>
+                <md-item-content>
+                    <p><a ui-sref="bowling_entry_create_bowler({leagueId:teamController.league.id, teamId: teamController.team.id})">Add Bowler</a></p>
+                </md-item-content>
+            </md-item>
+        </md-list>
+    </div>
+</div>

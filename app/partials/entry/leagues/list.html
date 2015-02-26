@@ -1,14 +1,21 @@
-{{ leagues.leagues }}
+{{ leagueController.leagues }}
 
-<md-list flex>
-    <md-item ng-repeat="league in leagues.leagues">
-        <md-item-content>
-            <div class="md-tile-content">
-                <h3>{{league.name}}</h3>
-                <p><a ui-sref="bowling_entry_league_details({leagueId:league.id})">League Details</a></p>
-                <p>{{ league }}</p>
-            </div>
-        </md-item-content>
-        <md-divider ng-if="!$last"></md-divider>
-    </md-item>
-</md-list>
+<div layout="row">
+    <div flex>
+      <md-list flex>
+          <md-item ng-repeat="league in leagueController.leagues">
+              <md-item-content>
+                  <div class="md-tile-content">
+                      <h3>{{league.name}}</h3>
+                      <p><a ui-sref="bowling_entry_league_details({leagueId:league.id})">League Details</a></p>
+                      <p>{{ league }}</p>
+                  </div>
+              </md-item-content>
+              <md-divider ng-if="!$last"></md-divider>
+          </md-item>
+      </md-list>
+    </div>
+    <div>
+        <p><a ui-sref="bowling_entry_add_league">Add League</a></p>
+    </div>
+</div>

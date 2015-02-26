@@ -1,0 +1,41 @@
+<h1>Create Match</h1>
+
+<div layout="row">
+
+    <div layout="column" flex>
+        <div>
+            <md-select ng-model="createController.match.team1.team" placeholder="Team 01">
+                <md-option ng-value="team" ng-repeat="team in createController.teams">{{ team.name }}</md-option>
+            </md-select>
+        </div>
+
+        <div>
+            <md-input-container>
+                <label>Lane</label>
+                <input ng-model="createController.match.team1.lane" type="number">
+            </md-input-container>
+        </div>
+    </div>
+
+    <div layout="column" flex>
+        <div>
+            <md-select ng-model="createController.match.team2.team" placeholder="Team 02">
+                <md-option ng-value="team" ng-repeat="team in createController.teams">{{ team.name }}</md-option>
+            </md-select>
+        </div>
+
+        <div>
+            <md-input-container>
+                <label>Lane</label>
+                <input ng-model="createController.match.team2.lane" type="number">
+            </md-input-container>
+        </div>
+
+    </div>
+
+    <div flex>
+      <md-button class="md-raised md-primary" ng-click="createController.submit()">Submit</md-button>
+    </div>
+
+</div>
+

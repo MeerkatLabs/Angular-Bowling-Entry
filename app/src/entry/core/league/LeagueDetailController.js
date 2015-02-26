@@ -1,21 +1,21 @@
 /**
  * Controller that will provide the entry point to the league details.
- * @param $stateParams
- * @param LeagueService
+ * @param league
  * @constructor
  */
-var LeagueDetailController = function($stateParams, LeagueService) {
-    var leagueId = $stateParams.leagueId;
-
+var LeagueDetailController = function(league) {
     var controller = this;
 
-    LeagueService.getLeague(leagueId).then(function(league) {
-        controller.league = league;
+    controller.league = league;
+
+    league.getSubstitutes().then(function(subs) {
+        controller.substitutes = subs;
     });
+
 };
 
 angular.module('bowling.entry.core')
-    .controller('LeagueDetailController', ['$stateParams', 'LeagueService', LeagueDetailController])
+    .controller('LeagueDetailController', ['league', LeagueDetailController])
     .config(['$stateProvider', function($stateProvider) {
 
         $stateProvider.state('bowling_entry_league_details', {
@@ -27,6 +27,9 @@ angular.module('bowling.entry.core')
             resolve: {
                 user: ['UserService', function(UserService) {
                     return UserService.getUser();
+                }],
+                league: ['$stateParams', 'LeagueService', function($stateParams, LeagueService) {
+                    return LeagueService.getLeague($stateParams.leagueId);
                 }]
             }
         });
