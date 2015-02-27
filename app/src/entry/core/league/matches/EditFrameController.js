@@ -1,48 +1,40 @@
 /**
- * Controller that shows the details of a match and allows for the user to select which bowlers to override for the
- * game.
+ * Created by rerobins on 2/26/15.
  */
-var ScoresheetController = function($state, league, week, match, scoreSheet) {
-
-    console.log('Scoresheet', scoreSheet);
+var EditFrameController = function($state, $stateParams, MatchService, league, week, match, scoreSheet) {
 
     var controller = this;
-    controller.scoreSheet = scoreSheet;
-    controller.league = league;
-    controller.week = week;
-    controller.match = scoreSheet;
 
-    controller.gameLabels = [];
-    for (var i = 0; i < league.number_of_games; ++i) {
-        controller.gameLabels.push(i+1);
-    }
+    controller.scoreSheet = scoreSheet;
+    controller.frameNumber = $stateParams.frameId;
+    controller.gameNumber = $stateParams.gameId;
 
     controller.submit = function() {
-        match.one('scoresheet').customPUT(scoreSheet);
-    };
 
-    controller.viewGame = function(gameId) {
-        $state.go('bowling_entry_league_week_match_game',
-            {
+        MatchService.cleanUpScoresheet(scoreSheet);
+
+        match.one('scoresheet').customPUT(scoreSheet).then(function() {
+            $state.go('bowling_entry_league_week_match_game', {
                 leagueId: league.id,
                 weekId: week.id,
                 matchId: match.id,
-                gameId: gameId
+                gameId: $stateParams.gameId
             });
+        });
     };
 
 };
 
 angular.module('bowling.entry.core')
-    .controller('ScoresheetController', ['$state', 'league', 'week', 'match', 'scoreSheet', ScoresheetController])
+    .controller('EditFrameController', ['$state', '$stateParams', 'MatchService', 'league', 'week', 'match', 'scoreSheet', EditFrameController])
     .config(['$stateProvider', function($stateProvider) {
 
-        $stateProvider.state('bowling_entry_league_week_match_scoresheet', {
-            url: '/entry/league/:leagueId/week/:weekId/match/:matchId/scoresheet',
-            templateUrl: 'partials/entry/leagues/matches/scoresheet.html',
-            title: 'Score Sheet',
-            controller: 'ScoresheetController',
-            controllerAs: 'scoreController',
+        $stateProvider.state('bowling_entry_league_week_match_game_frame', {
+            url: '/entry/league/:leagueId/week/:weekId/match/:matchId/game/:gameId/:frameId/',
+            templateUrl: 'partials/entry/leagues/matches/games/frames/frame.html',
+            title: 'Frame Details',
+            controller: 'EditFrameController',
+            controllerAs: 'frameController',
             resolve: {
                 user: ['UserService', function(UserService) {
                     return UserService.getUser();

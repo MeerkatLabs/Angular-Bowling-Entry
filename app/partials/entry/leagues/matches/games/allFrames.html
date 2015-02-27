@@ -1,0 +1,59 @@
+{{ team().name }}
+<table width="100%">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th><a ui-sref="bowling_entry_league_week_match_game_frame(state(1))">1</a></th>
+        <th><a ui-sref="bowling_entry_league_week_match_game_frame(state(2))">2</a></th>
+        <th><a ui-sref="bowling_entry_league_week_match_game_frame(state(3))">3</a></th>
+        <th><a ui-sref="bowling_entry_league_week_match_game_frame(state(4))">5</a></th>
+        <th><a ui-sref="bowling_entry_league_week_match_game_frame(state(5))">5</a></th>
+        <th><a ui-sref="bowling_entry_league_week_match_game_frame(state(6))">6</a></th>
+        <th><a ui-sref="bowling_entry_league_week_match_game_frame(state(7))">7</a></th>
+        <th><a ui-sref="bowling_entry_league_week_match_game_frame(state(8))">8</a></th>
+        <th><a ui-sref="bowling_entry_league_week_match_game_frame(state(9))">9</a></th>
+        <th><a ui-sref="bowling_entry_league_week_match_game_frame(state(10))">10</a></th>
+        <th>Total</th>
+
+    </tr>
+    </thead>
+
+    <tbody>
+
+      <tr ng-repeat="bowler in team().bowlers">
+          <td>{{ bowler.name }}</td>
+          <td>
+              <bowling-frame bowler="bowler" frame-number="1" game-number="gameNumber()"></bowling-frame>
+          </td>
+          <td>
+              <bowling-frame bowler="bowler" frame-number="2" game-number="gameNumber()"></bowling-frame>
+          </td>
+          <td>
+              <bowling-frame bowler="bowler" frame-number="3" game-number="gameNumber()"></bowling-frame>
+          </td>
+          <td>
+              <bowling-frame bowler="bowler" frame-number="4" game-number="gameNumber()"></bowling-frame>
+          </td>
+          <td>
+              <bowling-frame bowler="bowler" frame-number="5" game-number="gameNumber()"></bowling-frame>
+          </td>
+          <td>
+              <bowling-frame bowler="bowler" frame-number="6" game-number="gameNumber()"></bowling-frame>
+          </td>
+          <td>
+              <bowling-frame bowler="bowler" frame-number="7" game-number="gameNumber()"></bowling-frame>
+          </td>
+          <td>
+              <bowling-frame bowler="bowler" frame-number="8" game-number="gameNumber()"></bowling-frame>
+          </td>
+          <td>
+              <bowling-frame bowler="bowler" frame-number="9" game-number="gameNumber()"></bowling-frame>
+          </td>
+          <td>
+              <bowling-frame bowler="bowler" frame-number="10" game-number="gameNumber()"></bowling-frame>
+          </td>
+          <td></td>
+      </tr>
+
+    </tbody>
+</table>

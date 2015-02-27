@@ -1,0 +1,28 @@
+<h1>Game {{ frameController.gameNumber }} Frame {{ frameController.frameNumber }}</h1>
+
+<div layout="column" flex>
+
+    <div ng-repeat="bowler in frameController.scoreSheet.team1.bowlers" layout="column">
+
+        <div layout="column" flex>
+            <p>{{ bowler.name }}</p>
+            <frame-edit bowler="bowler" frame-number="frameController.frameNumber" game-number="frameController.gameNumber">
+            </frame-edit>
+        </div>
+
+    </div>
+
+    <div ng-repeat="bowler in frameController.scoreSheet.team2.bowlers" layout="column">
+
+        <div layout="column" flex>
+            <p>{{ bowler.name }}</p>
+            <frame-edit bowler="bowler" frame-number="frameController.frameNumber" game-number="frameController.gameNumber">
+
+            </frame-edit>
+        </div>
+
+    </div>
+
+    <md-button class="md-raised md-primary" ng-click="frameController.submit()">Save</md-button>
+
+</div>

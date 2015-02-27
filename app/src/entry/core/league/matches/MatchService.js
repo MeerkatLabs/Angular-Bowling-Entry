@@ -39,6 +39,44 @@ var MatchServiceFactory = function() {
 
     };
 
+    var cleanUpGame = function(game) {
+
+        var framesToRemove = [];
+
+        game.frames.forEach(function(frame) {
+            if (angular.isArray(frame.throws)) {
+                if (frame.throws.length > 0) {
+                    frame.throws = frame.throws.join(',');
+                } else {
+                    framesToRemove.push(frame);
+                }
+            }
+        });
+
+        framesToRemove.forEach(function(frame) {
+            var index = game.frames.indexOf(frame);
+            if (index > -1) {
+                game.frames.splice(index, 1);
+            }
+        });
+    };
+
+    var cleanUpBowler = function(bowler) {
+        bowler.games.forEach(cleanUpGame);
+    };
+
+    var cleanUpTeams = function(team) {
+        team.bowlers.forEach(cleanUpBowler);
+    };
+
+    MatchService.cleanUpScoresheet = function(scoreSheet) {
+
+        // TODO this should return a promise.
+
+        cleanUpTeams(scoreSheet.team1);
+        cleanUpTeams(scoreSheet.team2);
+    };
+
     return MatchService;
 
 };

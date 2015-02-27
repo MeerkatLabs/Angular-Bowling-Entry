@@ -21,4 +21,10 @@
     </md-button>
 </div>
 
-
+<div layout="row">
+    <div ng-repeat="gameNumber in scoreController.gameLabels">
+        <md-button class="md-raised md-primary" ng-click="scoreController.viewGame(gameNumber)">
+            Game {{ gameNumber }}
+        </md-button>
+    </div>
+</div>
