@@ -2,7 +2,7 @@
  * Module definition file.
  */
 
-angular.module('bowling', ['bowling.core', 'bowling.entry', 'login', 'restangular'])
+angular.module('bowling', ['bowling.core', 'bowling.entry', 'mkl-login-jwt', 'restangular'])
     .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/');
 
@@ -11,16 +11,20 @@ angular.module('bowling', ['bowling.core', 'bowling.entry', 'login', 'restangula
                 templateUrl: 'partials/base.html',
                 title: 'Welcome'
             });
-    }]).config(['LoginServiceProvider', function(LoginServiceProvider) {
-        LoginServiceProvider.ignoreUrls = function(config) {
+    }]).config(['JWTLoginServiceProvider', function(JWTLoginServiceProvider) {
+        JWTLoginServiceProvider.ignoreUrls = function(config) {
             return config.url.indexOf('http://') !== 0 && config.url.indexOf('https://') !== 0;
         };
 
-        LoginServiceProvider.loginUrl = 'http://127.0.0.1:8000/api-token-auth/';
-        LoginServiceProvider.refreshUrl = 'http://127.0.0.1:8000/api-token-refresh/';
+        JWTLoginServiceProvider.loginUrl = 'http://127.0.0.1:8000/api-token-auth/';
+        JWTLoginServiceProvider.refreshUrl = 'http://127.0.0.1:8000/api-token-refresh/';
     }]).config(['RestangularProvider', function(RestangularProvider) {
 
         RestangularProvider.setBaseUrl('http://127.0.0.1:8000/bowling/api');
         RestangularProvider.setRequestSuffix('/');
+
+    }]).config(['jwtInterceptorProvider', function Config(jwtInterceptorProvider) {
+
+        jwtInterceptorProvider.authPrefix = 'JWT ';
 
     }]);

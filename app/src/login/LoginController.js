@@ -4,10 +4,10 @@
 
 /**
  * Login controller.
- * @param LoginService
+ * @param JWTLoginService
  * @constructor
  */
-var LoginController = function(LoginService) {
+var LoginController = function(JWTLoginService) {
     var controller = this;
 
     controller.userName = '';
@@ -16,7 +16,7 @@ var LoginController = function(LoginService) {
     controller.submit = function() {
         console.log('Submit button pressed', controller);
 
-        LoginService.login(controller.userName, controller.password).catch(function() {
+        JWTLoginService.login(controller.userName, controller.password).catch(function() {
 
             console.log('Notify user that password or username is incorrect');
             controller.error = {
@@ -28,10 +28,10 @@ var LoginController = function(LoginService) {
     };
 };
 
-angular.module('login')
-    .controller('LoginController', ['LoginService', LoginController])
-    .config(['LoginServiceProvider', function(LoginServiceProvider) {
-        LoginServiceProvider.displayLogin = ['$mdBottomSheet', function($mdBottomSheet) {
+angular.module('bowling')
+    .controller('LoginController', ['JWTLoginService', LoginController])
+    .config(['JWTLoginServiceProvider', function(JWTLoginServiceProvider) {
+        JWTLoginServiceProvider.displayLogin = ['$mdBottomSheet', function($mdBottomSheet) {
             // request the token, otherwise carry on.
             return $mdBottomSheet.show({
                 templateUrl: 'partials/login/login.html',
@@ -39,7 +39,8 @@ angular.module('login')
                 controllerAs: 'loginController'
             });
         }];
-        LoginServiceProvider.hideLogin = ['$mdBottomSheet', function($mdBottomSheet) {
+
+        JWTLoginServiceProvider.hideLogin = ['$mdBottomSheet', function($mdBottomSheet) {
             // request the token, otherwise carry on.
             $mdBottomSheet.hide();
         }];
