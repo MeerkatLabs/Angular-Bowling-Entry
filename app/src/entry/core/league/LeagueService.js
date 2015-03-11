@@ -50,10 +50,19 @@ var LeagueService = function($filter, Restangular) {
 
     /**
      * Retrieve the league based on the league Id.
-     * @param {int} leagueId
+     * @param {int|string} _leagueId
      * @returns {*}
      */
-    LeagueService.getLeague = function(leagueId) {
+    LeagueService.getLeague = function(_leagueId) {
+
+        var leagueId = parseInt(_leagueId);
+
+        // Don't request the value if it's already been fetched
+        if (currentLeague !== null && currentLeague.id === leagueId) {
+            return currentLeague;
+        }
+
+        // Otherwise fetch the league and carry on.
         return Restangular.one('league', leagueId).get().then(function(league) {
             currentLeague = league;
             return league;
