@@ -6,10 +6,6 @@
 var LeaguesController = function(LeagueService) {
     var controller = this;
 
-    var LeagueServiceAll = LeagueService.getAll();
-
-    console.log('LeagueServiceAll', LeagueServiceAll);
-
     LeagueService.getAll().then(function(leagues) {
         console.log('Received leagues', leagues);
         controller.leagues = leagues;
