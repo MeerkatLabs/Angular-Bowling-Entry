@@ -33,7 +33,10 @@ var LeagueService = function($filter, Restangular) {
             handicap_percentage: leagueConfiguration.handicapPercentage
         };
 
-        return Restangular.all('league').post(encodedConfiguration);
+        return Restangular.all('league').post(encodedConfiguration).then(function(newLeague) {
+            currentLeague = newLeague;
+            return currentLeague;
+        });
     };
 
     /**

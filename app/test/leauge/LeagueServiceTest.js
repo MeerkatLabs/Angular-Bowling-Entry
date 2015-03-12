@@ -149,7 +149,7 @@ describe('league:LeagueServiceTest', function() {
             $httpBackend.verifyNoOutstandingRequest();
         });
 
-        it('should send the correct post information when creating a new league', inject(function(LeagueService, $rootScope) {
+        it('should send the correct post information when creating a new league', inject(function(LeagueService) {
 
             // While this may look like may, it's really june.
             var date = new Date(2015, 5, 20);
@@ -186,6 +186,37 @@ describe('league:LeagueServiceTest', function() {
             $httpBackend.flush();
 
             expect(dataReceived).not.toBeNull();
+
+        }));
+
+        it('should cache the newly created league in the current league pointer', inject(function(LeagueService) {
+
+            // While this may look like may, it's really june.
+            var date = new Date(2015, 5, 20);
+
+            var leagueDefinition = {
+                name: 'League Name',
+                startDate: date,
+                numberOfWeeks: 10,
+                numberOfGames: 3,
+                playersPerTeam: 4,
+                pointsPerGame: 2,
+                pointsForTotals: 2,
+                handicapMax: 210,
+                handicapPercentage: 90
+            };
+
+            $httpBackend.expectPOST(leaguePostRegEx);
+
+            var dataReceived = null;
+            LeagueService.createLeague(leagueDefinition).then(function(data) {
+                dataReceived = data;
+            });
+
+            $httpBackend.flush();
+
+            expect(dataReceived).not.toBeNull();
+            expect(LeagueService.getCurrentLeague()).toBe(dataReceived);
 
         }));
 
