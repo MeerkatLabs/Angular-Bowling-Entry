@@ -1,5 +1,5 @@
 /**
- * Created by rerobins on 2/24/15.
+ * Controller responsible for the creation of a new league substitute.
  */
 var CreateSubstituteController = function($stateParams, $state, SubstituteService, league) {
 

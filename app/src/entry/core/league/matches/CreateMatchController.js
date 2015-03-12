@@ -1,5 +1,5 @@
 /**
- * Created by rerobins on 2/25/15.
+ * Controller responsible for the creation of the match between two teams in a specific week.
  */
 var CreateMatchController = function($state, MatchService, league, week) {
 

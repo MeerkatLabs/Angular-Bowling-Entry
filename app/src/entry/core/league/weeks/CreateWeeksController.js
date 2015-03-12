@@ -1,5 +1,5 @@
 /**
- * Created by rerobins on 2/25/15.
+ * Controller that defines all of the weeks in the league.
  */
 var CreateWeeksController = function($state, WeekService, league) {
 

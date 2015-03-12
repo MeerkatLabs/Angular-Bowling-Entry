@@ -1,5 +1,5 @@
 /**
- * Created by rerobins on 2/24/15.
+ * Controller that allows for the editing of a substitutes details.
  */
 var EditSubstituteController = function($state, SubstituteService, league, substitute) {
 

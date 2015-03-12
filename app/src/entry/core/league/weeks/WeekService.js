@@ -1,7 +1,6 @@
 /**
- * Created by rerobins on 2/24/15.
+ * Factory that will create a service capable of creating all of the weeks associated with a league.
  */
-
 var WeekServiceFactory = function($filter, $q) {
     var WeekService = {};
 

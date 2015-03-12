@@ -1,5 +1,5 @@
 /**
- * Created by rerobins on 2/24/15.
+ * Controller responsible for the creation of a new bowler on a team.
  */
 var CreateBowlerController = function($stateParams, $state, BowlerService, league, team) {
 

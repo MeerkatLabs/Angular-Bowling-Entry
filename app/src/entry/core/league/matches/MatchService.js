@@ -1,10 +1,16 @@
 /**
- * Match definition.
+ * Service factory definition of the match service.
  */
 var MatchServiceFactory = function() {
 
     var MatchService = {};
 
+    /**
+     * Creates a new match and stores it in the REST service.
+     * @param configuration
+     * @param week
+     * @returns {*}
+     */
     MatchService.createMatch = function(configuration, week) {
 
         var encodedConfiguration = {
@@ -19,6 +25,12 @@ var MatchServiceFactory = function() {
 
     };
 
+    /**
+     * Assign bowlers to the match for a specified team.
+     * @param configuration
+     * @param match
+     * @returns {*}
+     */
     MatchService.assignBowlers = function(configuration, match) {
 
         var teamNumber = configuration.teamNumber;
@@ -39,6 +51,10 @@ var MatchServiceFactory = function() {
 
     };
 
+    /**
+     * Cleans up the frame details in a game in order to post the data to the REST service.
+     * @param game
+     */
     var cleanUpGame = function(game) {
 
         var framesToRemove = [];
@@ -61,14 +77,26 @@ var MatchServiceFactory = function() {
         });
     };
 
+    /**
+     * Cleans up the bowler data for posting to the REST service.
+     * @param bowler
+     */
     var cleanUpBowler = function(bowler) {
         bowler.games.forEach(cleanUpGame);
     };
 
+    /**
+     * Cleans up the team data for posting to the REST service.
+     * @param team
+     */
     var cleanUpTeams = function(team) {
         team.bowlers.forEach(cleanUpBowler);
     };
 
+    /**
+     * Cleans up the score sheet data for posting to the REST service.
+     * @param scoreSheet
+     */
     MatchService.cleanUpScoresheet = function(scoreSheet) {
 
         // TODO this should return a promise.

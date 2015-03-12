@@ -1,5 +1,6 @@
 /**
- * Created by rerobins on 2/25/15.
+ * Controller responsible for the addition of a new team to a specified league.  Upon creation the page will redirect
+ * to the page containing the details of the new league.
  */
 var AddTeamController = function($state, TeamService, league) {
 

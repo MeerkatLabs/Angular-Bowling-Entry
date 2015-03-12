@@ -1,5 +1,5 @@
 /**
- * Created by rerobins on 2/26/15.
+ * Controller responsible for editing a specific frame in a specific game.
  */
 var EditFrameController = function($state, $stateParams, MatchService, league, week, match, scoreSheet) {
 

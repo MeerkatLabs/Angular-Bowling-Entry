@@ -1,7 +1,6 @@
 /**
  * Team Detail Controller.
  */
-
 var TeamDetailController = function($stateParams, TeamService, league, team) {
 
     var controller = this;

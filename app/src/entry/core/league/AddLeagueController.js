@@ -1,5 +1,6 @@
 /**
- * Created by rerobins on 2/25/15.
+ * Provide a form that will add a new league to the database.  Upon successful saving of the new league, the page will
+ * redirect to the details of the league that was just generated.
  */
 var AddLeagueController = function($state, LeagueService) {
 

@@ -1,7 +1,6 @@
 /**
  * Definition of the league service.
  */
-
 var LeagueService = function($filter, Restangular) {
 
     var LeagueService = {};
@@ -10,7 +9,7 @@ var LeagueService = function($filter, Restangular) {
 
     /**
      * Cache the league that is currently being worked on.
-     * @returns {BowlingEntryLeague}
+     * @returns {{}}
      */
     LeagueService.getCurrentLeague = function() {
         return currentLeague;
@@ -77,18 +76,38 @@ angular.module('bowling.entry.core')
     .factory('LeagueService', ['$filter', 'Restangular', LeagueService])
     .config(['RestangularProvider', function(RestangularProvider) {
         RestangularProvider.extendModel('league', function(model) {
+
+            /**
+             * Return the team associated with the team id provided (from the league).
+             * @param {int} teamId
+             * @returns {*}
+             */
             model.getTeam = function(teamId) {
                 return this.one('teams', teamId).get();
             };
 
+            /**
+             * Return all of the substitutes that are associated with the league.
+             * @returns {*}
+             */
             model.getSubstitutes = function() {
                 return this.all('substitute').getList();
             };
 
+            /**
+             * Return a specific substitute associated with the league.
+             * @param {int} subId
+             * @returns {*}
+             */
             model.getSubstitute = function(subId) {
                 return this.one('substitute', subId).get();
             };
 
+            /**
+             * Return a specific week associated with the league.
+             * @param {int} weekId
+             * @returns {*}
+             */
             model.getWeek = function(weekId) {
                 return this.one('weeks', weekId).get();
             };

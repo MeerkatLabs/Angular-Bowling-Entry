@@ -1,5 +1,5 @@
 /**
- * Service that will work with the team objects.
+ * Service factory that will work with the team objects.
  */
 var TeamService = function($q, LeagueService) {
 

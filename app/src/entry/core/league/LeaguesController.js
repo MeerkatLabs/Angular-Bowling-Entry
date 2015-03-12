@@ -2,7 +2,6 @@
  * Controller responsible for listing all of the leagues that are in the database that can be written to by the
  * currently logged in user.
  */
-
 var LeaguesController = function(leagues, user) {
     var controller = this;
 

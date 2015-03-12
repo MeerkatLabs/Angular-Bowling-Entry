@@ -1,8 +1,4 @@
 /**
- * Created by rerobins on 2/19/15.
- */
-
-/**
  * Login controller.
  * @param JWTLoginService
  * @constructor

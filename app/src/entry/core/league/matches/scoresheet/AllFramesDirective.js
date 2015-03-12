@@ -1,5 +1,5 @@
 /**
- * Created by rerobins on 2/26/15.
+ * Directive that will render all of the frames for a specific team in a specific game.
  */
 var AllFramesDirectiveFactory = function($state) {
 
@@ -10,18 +10,7 @@ var AllFramesDirectiveFactory = function($state) {
             gameNumber: '&'
         },
         link: function($scope, elem, attr) {
-            console.log('$scope', $scope);
-            console.log('$state', $state);
 
-            $scope.state = function(frameId) {
-                return {
-                    leagueId: $state.params.leagueId,
-                    matchId: $state.params.matchId,
-                    weekId: $state.params.weekId,
-                    gameId: $state.params.gameId,
-                    frameId: frameId
-                };
-            };
         }
     };
 

@@ -1,7 +1,9 @@
 /**
  * Controller for the top bar of the application.
+ *
+ * Responsible for updating the title on the state change success values and the hamburger menu for the side bar open
+ * and close.
  */
-
 var TopBarController = function($rootScope, $mdSidenav) {
 
     var controller = this;

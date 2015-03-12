@@ -1,5 +1,5 @@
 /**
- * Created by rerobins on 2/24/15.
+ * Controller responsible for editing a bowlers details.
  */
 var EditBowlerController = function($stateParams, $state, BowlerService, league, team, bowler) {
 

@@ -1,5 +1,5 @@
 /**
- * Created by rerobins on 2/26/15.
+ * Controller that will assign bowlers to a specific match.
  */
 var AssignBowlersController = function($state, $stateParams, MatchService, league, week, match, team, teamDefinition, leagueSubstitutes) {
     var controller = this;

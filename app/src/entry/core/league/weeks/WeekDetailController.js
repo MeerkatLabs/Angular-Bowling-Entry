@@ -1,5 +1,7 @@
 /**
- * Created by rerobins on 2/24/15.
+ * Controller responsible for the display of the week details.
+ *
+ * This includes all of the matches that are defined in the week.
  */
 var WeekDetailController = function(league, week) {
 

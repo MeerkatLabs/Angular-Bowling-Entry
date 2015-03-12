@@ -1,5 +1,5 @@
 /**
- * Created by rerobins on 2/26/15.
+ * Directive factory that is responsible for the rendering of a scoresheet.
  */
 var ScoreSheetDirectiveFactory = function() {
 

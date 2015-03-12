@@ -1,5 +1,5 @@
 /**
- * Created by rerobins on 2/26/15.
+ * Controller responsible for displaying the scoresheet data of a specific game.
  */
 var GameDetailController = function($stateParams, league, week, match, scoreSheet) {
 

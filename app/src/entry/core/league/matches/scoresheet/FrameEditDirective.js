@@ -1,5 +1,5 @@
 /**
- * Created by rerobins on 2/26/15.
+ * Directive factory that creates a rendering implementation for the editing of frames.
  */
 var FrameEditDirectiveFactory = function() {
 
