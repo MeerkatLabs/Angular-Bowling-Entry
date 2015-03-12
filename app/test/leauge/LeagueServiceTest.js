@@ -62,6 +62,9 @@ describe('league:LeagueServiceTest', function() {
 
             $httpBackend.whenGET(league01Get)
                 .respond(league01);
+
+            $httpBackend.whenGET(league02Get)
+                .respond(league02);
         }));
 
         afterEach(function() {
@@ -101,6 +104,91 @@ describe('league:LeagueServiceTest', function() {
             expect(LeagueService.getCurrentLeague()).toBe(fetchedLeague);
 
         }));
+
+        it('fetch league 2 after being populated with league 1', inject(function(LeagueService) {
+
+            $httpBackend.expectGET(league01Get);
+            LeagueService.getLeague(1);
+
+            $httpBackend.flush();
+
+            $httpBackend.expectGET(league02Get);
+            LeagueService.getLeague(2).then(function(league) {
+                expect(league.name).toBe(league02.name);
+                expect(league.id).toBe(league02.id);
+            });
+
+            $httpBackend.flush();
+
+        }));
+    });
+
+    describe('league:LeagueServiceTest:_createLeague', function(LeagueService) {
+
+        var league = {};
+        var $httpBackend;
+
+        var leaguePostRegEx = new RegExp('/league/$');
+
+        beforeEach(inject(function(_$httpBackend_, Restangular) {
+            $httpBackend = _$httpBackend_;
+
+            Restangular.setRequestSuffix('/');
+            Restangular.setBaseUrl('http://localhost/api');
+
+            $httpBackend.whenPOST(leaguePostRegEx).respond(function(method, url, data, headers) {
+                console.log('returning data');
+
+                return [200, data ]
+            });
+
+        }));
+
+        afterEach(function() {
+            $httpBackend.verifyNoOutstandingExpectation();
+            $httpBackend.verifyNoOutstandingRequest();
+        });
+
+        it('should send the correct post information when creating a new league', inject(function(LeagueService, $rootScope) {
+
+            // While this may look like may, it's really june.
+            var date = new Date(2015, 5, 20);
+
+            var leagueDefinition = {
+                name: 'League Name',
+                startDate: date,
+                numberOfWeeks: 10,
+                numberOfGames: 3,
+                playersPerTeam: 4,
+                pointsPerGame: 2,
+                pointsForTotals: 2,
+                handicapMax: 210,
+                handicapPercentage: 90
+            };
+
+            $httpBackend.expectPOST(leaguePostRegEx);
+
+            var dataReceived = null;
+            LeagueService.createLeague(leagueDefinition).then(function(data) {
+                dataReceived = data;
+                expect(data.name).toBe(leagueDefinition.name);
+                expect(data.start_date).toBe('2015-06-20');
+                expect(data.number_of_weeks).toBe(leagueDefinition.numberOfWeeks);
+                expect(data.number_of_games).toBe(leagueDefinition.numberOfGames);
+                expect(data.players_per_team).toBe(leagueDefinition.playersPerTeam);
+                expect(data.points_per_game).toBe(leagueDefinition.pointsPerGame);
+                expect(data.points_for_totals).toBe(leagueDefinition.pointsForTotals);
+                expect(data.handicap_max).toBe(leagueDefinition.handicapMax);
+                expect(data.handicap_percentage).toBe(leagueDefinition.handicapPercentage);
+
+            });
+
+            $httpBackend.flush();
+
+            expect(dataReceived).not.toBeNull();
+
+        }));
+
     });
 
 });
