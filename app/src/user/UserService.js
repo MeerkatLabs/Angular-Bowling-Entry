@@ -19,7 +19,10 @@ var UserService = function($q, $rootScope, Restangular, USER_EVENTS) {
      */
     UserService.getUser = function() {
         if (deferred === null) {
-            deferred = Restangular.one('self').get();
+            deferred = Restangular.one('self').get().then(function(user) {
+                $rootScope.$broadcast(USER_EVENTS.USER_DEFINED, user);
+                return user;
+            });
         }
 
         return deferred;
