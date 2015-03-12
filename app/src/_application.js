@@ -4,10 +4,14 @@
 
 angular.module('bowling', ['bowling.core', 'bowling.entry', 'mkl-login-jwt', 'restangular'])
     .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise('/main');
 
-        $stateProvider.state('bowling.base', {
+        $stateProvider.state('bowling', {
                 url: '/',
+                template: '<ui-view/>',
+                title: 'Welcome'
+            }).state('bowling.main', {
+                url: 'main',
                 templateUrl: 'partials/base.html',
                 title: 'Welcome'
             });

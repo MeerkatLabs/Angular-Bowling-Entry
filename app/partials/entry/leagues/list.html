@@ -7,7 +7,7 @@
               <md-item-content>
                   <div class="md-tile-content">
                       <h3>{{league.name}}</h3>
-                      <p><a ui-sref="bowling_entry_league_details({leagueId:league.id})">League Details</a></p>
+                      <p><a ui-sref="^.league.detail({leagueId:league.id})">League Details</a></p>
                       <p>{{ league }}</p>
                   </div>
               </md-item-content>
@@ -16,6 +16,8 @@
       </md-list>
     </div>
     <div>
-        <p><a ui-sref="bowling_entry_add_league">Add League</a></p>
+        <p><a ui-sref="^.createLeague">Add League</a></p>
     </div>
 </div>
+
+<ui-view></ui-view>

@@ -22,13 +22,7 @@ var ScoresheetController = function($state, league, week, match, scoreSheet) {
     };
 
     controller.viewGame = function(gameId) {
-        $state.go('bowling_entry_league_week_match_game',
-            {
-                leagueId: league.id,
-                weekId: week.id,
-                matchId: match.id,
-                gameId: gameId
-            });
+        $state.go('.game.detail', {gameId: gameId});
     };
 
 };
@@ -37,29 +31,24 @@ angular.module('bowling.entry.core')
     .controller('ScoresheetController', ['$state', 'league', 'week', 'match', 'scoreSheet', ScoresheetController])
     .config(['$stateProvider', function($stateProvider) {
 
-        $stateProvider.state('bowling_entry_league_week_match_scoresheet', {
-            url: '/entry/league/:leagueId/week/:weekId/match/:matchId/scoresheet',
-            templateUrl: 'partials/entry/leagues/matches/scoresheet.html',
-            title: 'Score Sheet',
-            controller: 'ScoresheetController',
-            controllerAs: 'scoreController',
-            resolve: {
-                user: ['UserService', function(UserService) {
-                    return UserService.getUser();
-                }],
-                league: ['$stateParams', 'LeagueService', function($stateParams, LeagueService) {
-                    return LeagueService.getLeague($stateParams.leagueId);
-                }],
-                week: ['$stateParams', 'league', function($stateParams, league) {
-                    return league.getWeek($stateParams.weekId);
-                }],
-                match: ['$stateParams', 'week', function($stateParams, week) {
-                    return week.getMatch($stateParams.matchId);
-                }],
-                scoreSheet: ['match', function(match) {
-                    return match.getScoreSheet();
-                }]
-            }
-        });
+        $stateProvider.state('bowling.league.week.match', {
+                url: '/:matchId',
+                abstract: true,
+                template: '<ui-view/>',
+                resolve: {
+                    match: ['$stateParams', 'week', function($stateParams, week) {
+                        return week.getMatch($stateParams.matchId);
+                    }],
+                    scoreSheet: ['match', function(match) {
+                        return match.getScoreSheet();
+                    }]
+                }
+            }).state('bowling.league.week.match.scoresheet', {
+                url: '/scoresheet',
+                templateUrl: 'partials/entry/leagues/matches/scoresheet.html',
+                title: 'Score Sheet',
+                controller: 'ScoresheetController',
+                controllerAs: 'scoreController'
+            });
 
     }]);

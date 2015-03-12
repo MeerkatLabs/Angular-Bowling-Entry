@@ -12,7 +12,7 @@
                     <div class="md-tile-content">
                         <h3>{{bowler.name}}</h3>
                         <p><a>Bowler Details</a></p>
-                        <p><a ui-sref="bowling_entry_edit_bowler({leagueId:teamController.league.id, teamId: teamController.team.id, bowlerId: bowler.id})">Edit Bowler</a></p>
+                        <p><a ui-sref="^.bowler.edit({bowlerId: bowler.id})">Edit Bowler</a></p>
                         <p>{{ bowler }}</p>
                     </div>
                 </md-item-content>
@@ -25,7 +25,7 @@
         <md-list>
             <md-item>
                 <md-item-content>
-                    <p><a ui-sref="bowling_entry_create_bowler({leagueId:teamController.league.id, teamId: teamController.team.id})">Add Bowler</a></p>
+                    <p><a ui-sref="^.createBowler">Add Bowler</a></p>
                 </md-item-content>
             </md-item>
         </md-list>

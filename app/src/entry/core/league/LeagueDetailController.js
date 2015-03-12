@@ -18,20 +18,21 @@ angular.module('bowling.entry.core')
     .controller('LeagueDetailController', ['league', LeagueDetailController])
     .config(['$stateProvider', function($stateProvider) {
 
-        $stateProvider.state('bowling_entry_league_details', {
-            url: '/entry/league/:leagueId/',
-            templateUrl: 'partials/entry/leagues/detail.html',
-            title: 'League Detail',
-            controller: 'LeagueDetailController',
-            controllerAs: 'leagueController',
+        $stateProvider.state('bowling.league', {
+            url: 'league/:leagueId',
+            abstract: true,
+            template: '<ui-view/>',
             resolve: {
-                user: ['UserService', function(UserService) {
-                    return UserService.getUser();
-                }],
                 league: ['$stateParams', 'LeagueService', function($stateParams, LeagueService) {
                     return LeagueService.getLeague($stateParams.leagueId);
                 }]
             }
+        }).state('bowling.league.detail', {
+            url: '/',
+            templateUrl: 'partials/entry/leagues/detail.html',
+            title: 'League Detail',
+            controller: 'LeagueDetailController',
+            controllerAs: 'leagueController'
         });
 
     }]);

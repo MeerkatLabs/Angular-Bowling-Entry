@@ -19,7 +19,7 @@ var AddLeagueController = function($state, LeagueService) {
 
     controller.submit = function() {
         LeagueService.createLeague(controller.league).then(function(savedObject) {
-            $state.go('bowling_entry_league_details', {leagueId: savedObject.id});
+            $state.go('^.league.details', {leagueId: savedObject.id});
         });
     };
 
@@ -29,8 +29,8 @@ angular.module('bowling.entry.core')
     .controller('AddLeagueController', ['$state', 'LeagueService', AddLeagueController])
     .config(['$stateProvider', function($stateProvider) {
 
-        $stateProvider.state('bowling_entry_add_league', {
-            url: '/entry/addLeague',
+        $stateProvider.state('bowling.createLeague', {
+            url: 'addLeague',
             templateUrl: 'partials/entry/leagues/add.html',
             title: 'Add League',
             controller: 'AddLeagueController',

@@ -19,25 +19,21 @@ var TeamDetailController = function($stateParams, TeamService, league, team) {
 angular.module('bowling.entry.core')
     .controller('TeamDetailController', ['$stateParams', 'TeamService', 'league', 'team', TeamDetailController])
     .config(['$stateProvider', function($stateProvider) {
-        $stateProvider.state('bowling_entry_team_detail', {
-            url: '/entry/leagues/:leagueId/:teamId',
-            templateUrl: 'partials/entry/leagues/teams/detail.html',
-            title: 'Team Detail',
-            controller: 'TeamDetailController',
-            controllerAs: 'teamController',
-            resolve: {
-                user: ['UserService', function(UserService) {
-                    return UserService.getUser();
-                }],
-                league: ['$stateParams', 'LeagueService', function($stateParams, LeagueService) {
 
-                    // TODO: Create injectors that will check the current league, and update the league value if
-                    // necessary.
-                    return LeagueService.getLeague($stateParams.leagueId);
-                }],
-                team: ['$stateParams', 'league', function($stateParams, league) {
-                    return league.getTeam($stateParams.teamId);
-                }]
-            }
-        });
+        $stateProvider.state('bowling.league.team', {
+                url: '/:teamId',
+                abstract: true,
+                template: '<ui-view/>',
+                resolve: {
+                    team: ['$stateParams', 'league', function($stateParams, league) {
+                        return league.getTeam($stateParams.teamId);
+                    }]
+                }
+            }).state('bowling.league.team.detail', {
+                url: '/',
+                templateUrl: 'partials/entry/leagues/teams/detail.html',
+                title: 'Team Detail',
+                controller: 'TeamDetailController',
+                controllerAs: 'teamController'
+            });
     }]);

@@ -19,9 +19,7 @@ var UserService = function($q, $rootScope, Restangular, USER_EVENTS) {
      */
     UserService.getUser = function() {
         if (deferred === null) {
-            deferred = $q(function(resolve, reject) {
-                resolve(Restangular.one('self').get());
-            });
+            deferred = Restangular.one('self').get();
         }
 
         return deferred;

@@ -17,7 +17,7 @@ var CreateSubstituteController = function($stateParams, $state, SubstituteServic
             name: controller.name,
             handicap: controller.handicap
         }).then(function() {
-            $state.go('bowling_entry_league_details', {leagueId: league.id});
+            $state.go('^.details');
         });
     };
 
@@ -26,19 +26,11 @@ var CreateSubstituteController = function($stateParams, $state, SubstituteServic
 angular.module('bowling.entry.core')
     .controller('CreateSubstituteController', ['$stateParams', '$state', 'SubstituteService', 'league', CreateSubstituteController])
     .config(['$stateProvider', function($stateProvider) {
-        $stateProvider.state('bowling_entry_create_sub', {
-            url: '/entry/leagues/:leagueId/createSub',
+        $stateProvider.state('bowling.league.createSub', {
+            url: '/createSub',
             templateUrl: 'partials/entry/leagues/substitutes/create.html',
             title: 'Create Substitute',
             controller: 'CreateSubstituteController',
-            controllerAs: 'subController',
-            resolve: {
-                user: ['UserService', function(UserService) {
-                    return UserService.getUser();
-                }],
-                league: ['$stateParams', 'LeagueService', function($stateParams, LeagueService) {
-                    return LeagueService.getLeague($stateParams.leagueId);
-                }]
-            }
+            controllerAs: 'subController'
         });
     }]);

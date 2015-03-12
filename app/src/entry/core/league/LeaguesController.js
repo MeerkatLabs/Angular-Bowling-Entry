@@ -3,21 +3,19 @@
  * currently logged in user.
  */
 
-var LeaguesController = function(LeagueService) {
+var LeaguesController = function(leagues, user) {
     var controller = this;
 
-    LeagueService.getAll().then(function(leagues) {
-        console.log('Received leagues', leagues);
-        controller.leagues = leagues;
-    });
+    controller.leagues = leagues;
+
 };
 
 angular.module('bowling.entry.core')
-    .controller('LeaguesController', ['LeagueService', LeaguesController])
+    .controller('LeaguesController', ['leagues', 'user', LeaguesController])
     .config(['$stateProvider', function($stateProvider) {
 
-        $stateProvider.state('bowling_entry_leagues', {
-            url: '/entry/leagues',
+        $stateProvider.state('bowling.leagues', {
+            url: 'leagues',
             templateUrl: 'partials/entry/leagues/list.html',
             title: 'League List',
             controller: 'LeaguesController',
@@ -25,6 +23,9 @@ angular.module('bowling.entry.core')
             resolve: {
                 user: ['UserService', function(UserService) {
                     return UserService.getUser();
+                }],
+                leagues: ['LeagueService', function(LeagueService) {
+                    return LeagueService.getAll();
                 }]
             }
         });

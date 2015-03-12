@@ -8,14 +8,14 @@
       <md-list flex>
           <md-item>
               <md-item-content>
-                  <p><a ui-sref="bowling_entry_add_team({leagueId:leagueController.league.id})">Create New Team</a></p>
+                  <p><a ui-sref="^.addTeam({leagueId:leagueController.league.id})">Create New Team</a></p>
               </md-item-content>
           </md-item>
           <md-item ng-repeat="team in leagueController.league.teams">
               <md-item-content>
                   <div class="md-tile-content">
                       <h3>{{team.name}}</h3>
-                      <p><a ui-sref="bowling_entry_team_detail({leagueId:leagueController.league.id, teamId:team.id})">Team Details</a></p>
+                      <p><a ui-sref="^.team.detail({leagueId:leagueController.league.id, teamId:team.id})">Team Details</a></p>
                   </div>
               </md-item-content>
               <md-divider ng-if="!$last"></md-divider>
@@ -28,14 +28,14 @@
       <md-list flex>
           <md-item>
               <md-item-content>
-                  <p><a ui-sref="bowling_entry_league_create_weeks({leagueId:leagueController.league.id})">Create All Weeks</a></p>
+                  <p><a ui-sref="^.createWeeks">Create All Weeks</a></p>
               </md-item-content>
           </md-item>
           <md-item ng-repeat="week in leagueController.league.weeks | orderBy:'date'">
               <md-item-content>
                   <div class="md-tile-content">
                       <h3>{{week.date}}</h3>
-                      <p><a ui-sref="bowling_entry_league_week_details({leagueId:leagueController.league.id, weekId:week.id})">Week Details</a></p>
+                      <p><a ui-sref="^.week.details({weekId:week.id})">Week Details</a></p>
                   </div>
               </md-item-content>
               <md-divider ng-if="!$last"></md-divider>
@@ -48,7 +48,7 @@
       <md-list flex>
           <md-item>
               <md-item-content>
-                  <p><a ui-sref="bowling_entry_create_sub({leagueId:leagueController.league.id})">Create New Substitute</a></p>
+                  <p><a ui-sref="^.createSub">Create New Substitute</a></p>
               </md-item-content>
           </md-item>
           <md-divider></md-divider>
@@ -57,7 +57,7 @@
                   <div class="md-tile-content">
                       <h3>{{sub.name}}</h3>
                       <p><a ui-sref="bowling_entry_league_details({leagueId:sub.id})">Sub Details</a></p>
-                      <p><a ui-sref="bowling_entry_edit_sub({leagueId:leagueController.league.id, subId:sub.id})">Edit Sub</a></p>
+                      <p><a ui-sref="^.sub.edit({subId:sub.id})">Edit Sub</a></p>
                   </div>
               </md-item-content>
               <md-divider ng-if="!$last"></md-divider>

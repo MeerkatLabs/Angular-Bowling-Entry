@@ -17,23 +17,21 @@ angular.module('bowling.entry.core')
     .controller('WeekDetailController', ['league', 'week', WeekDetailController])
     .config(['$stateProvider', function($stateProvider) {
 
-        $stateProvider.state('bowling_entry_league_week_details', {
-            url: '/entry/league/:leagueId/week/:weekId',
-            templateUrl: 'partials/entry/leagues/weeks/detail.html',
-            title: 'Week Detail',
-            controller: 'WeekDetailController',
-            controllerAs: 'weekController',
-            resolve: {
-                user: ['UserService', function(UserService) {
-                    return UserService.getUser();
-                }],
-                league: ['$stateParams', 'LeagueService', function($stateParams, LeagueService) {
-                    return LeagueService.getLeague($stateParams.leagueId);
-                }],
-                week: ['$stateParams', 'league', function($stateParams, league) {
-                    return league.getWeek($stateParams.weekId);
-                }]
-            }
-        });
+        $stateProvider.state('bowling.league.week', {
+                url: '/week/:weekId',
+                abstract: true,
+                template: '<ui-view/>',
+                resolve: {
+                    week: ['$stateParams', 'league', function($stateParams, league) {
+                        return league.getWeek($stateParams.weekId);
+                    }]
+                }
+            }).state('bowling.league.week.details', {
+                url: '/',
+                templateUrl: 'partials/entry/leagues/weeks/detail.html',
+                title: 'Week Detail',
+                controller: 'WeekDetailController',
+                controllerAs: 'weekController'
+            });
 
     }]);

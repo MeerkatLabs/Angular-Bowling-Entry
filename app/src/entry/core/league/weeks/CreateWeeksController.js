@@ -20,7 +20,7 @@ var CreateWeeksController = function($state, WeekService, league) {
 
     controller.submit = function() {
         WeekService.createWeeks(controller.weeks, league).then(function() {
-            $state.go('bowling_entry_league_details', {leagueId: league.id});
+            $state.go('^.details');
         });
     };
 
@@ -30,20 +30,12 @@ angular.module('bowling.entry.core')
     .controller('CreateWeeksController', ['$state', 'WeekService', 'league', CreateWeeksController])
     .config(['$stateProvider', function($stateProvider) {
 
-        $stateProvider.state('bowling_entry_league_create_weeks', {
-            url: '/entry/league/:leagueId/createWeeks',
+        $stateProvider.state('bowling.league.createWeeks', {
+            url: '/createWeeks',
             templateUrl: 'partials/entry/leagues/weeks/create.html',
             title: 'Create All Weeks',
             controller: 'CreateWeeksController',
-            controllerAs: 'create',
-            resolve: {
-                user: ['UserService', function(UserService) {
-                    return UserService.getUser();
-                }],
-                league: ['$stateParams', 'LeagueService', function($stateParams, LeagueService) {
-                    return LeagueService.getLeague($stateParams.leagueId);
-                }]
-            }
+            controllerAs: 'create'
         });
 
     }]);

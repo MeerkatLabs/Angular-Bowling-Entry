@@ -6,7 +6,7 @@
 
 <p>Matches: {{ weekController.matches }}</p>
 
-<p><a ui-sref="bowling_entry_league_week_create_match({leagueId: weekController.league.id, weekId: weekController.week.id})">Create Match</a></p>
+<p><a ui-sref="^.createMatch">Create Match</a></p>
 
 <div layout="row">
     <md-list flex>
@@ -14,7 +14,7 @@
             <md-item-content>
                 <div class="md-tile-content">
                     <h3>{{match.lanes}}</h3>
-                    <p><a ui-sref="bowling_entry_league_week_match_scoresheet({leagueId: weekController.league.id, weekId: weekController.week.id, matchId: match.id})">{{ match.team1.name }} vs. {{ match.team2.name }}</a></p>
+                    <p><a ui-sref="^.match.scoresheet({matchId: match.id})">{{ match.team1.name }} vs. {{ match.team2.name }}</a></p>
                 </div>
             </md-item-content>
             <md-divider ng-if="!$last"></md-divider>

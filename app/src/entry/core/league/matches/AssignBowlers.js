@@ -32,11 +32,7 @@ var AssignBowlersController = function($state, $stateParams, MatchService, leagu
         };
 
         MatchService.assignBowlers(configuration, match).then(function() {
-            $state.go('bowling_entry_league_week_match_scoresheet', {
-                leagueId: league.id,
-                matchId: match.id,
-                weekId: week.id
-            });
+            $state.go('^.details');
         });
     };
 
@@ -46,25 +42,14 @@ angular.module('bowling.entry.core')
     .controller('AssignBowlersController', ['$state', '$stateParams', 'MatchService', 'league', 'week', 'match', 'team', 'teamDefinition', 'leagueSubstitutes',
                 AssignBowlersController])
     .config(['$stateProvider', function($stateProvider) {
-        $stateProvider.state('bowling_entry_league_week_match_assign_bowlers', {
-            url: '/entry/league/:leagueId/week/:weekId/match/:matchId/assign/:teamId',
+
+        $stateProvider.state('bowling.league.week.match.assignBowlers', {
+            url: '/assign/:teamId',
             templateUrl: 'partials/entry/leagues/matches/assignBowlers.html',
             title: 'Assign Bowlers',
             controller: 'AssignBowlersController',
             controllerAs: 'assignBowlers',
             resolve: {
-                user: ['UserService', function(UserService) {
-                    return UserService.getUser();
-                }],
-                league: ['$stateParams', 'LeagueService', function($stateParams, LeagueService) {
-                    return LeagueService.getLeague($stateParams.leagueId);
-                }],
-                week: ['$stateParams', 'league', function($stateParams, league) {
-                    return league.getWeek($stateParams.weekId);
-                }],
-                match: ['$stateParams', 'week', function($stateParams, week) {
-                    return week.getMatch($stateParams.matchId);
-                }],
                 team: ['$stateParams', 'match', function($stateParams, match) {
                     if ($stateParams.teamId == 1) {
                         return match.team1;
@@ -80,4 +65,5 @@ angular.module('bowling.entry.core')
                 }]
             }
         });
+
     }]);

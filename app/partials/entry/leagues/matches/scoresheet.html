@@ -5,14 +5,14 @@
         <score-sheet league="scoreController.league"
                      ng-model="scoreController.scoreSheet.team1"></score-sheet>
         <div>
-            <a ui-sref="bowling_entry_league_week_match_assign_bowlers({leagueId: scoreController.league.id, weekId: scoreController.week.id, matchId: scoreController.scoreSheet.id, teamId: 1})">Assign Bowlers</a>
+            <a ui-sref="^.assignBowlers({teamId: 1})">Assign Bowlers</a>
         </div>
     </div>
 
     <div flex layout="column">
         <score-sheet league="scoreController.league" ng-model="scoreController.scoreSheet.team2"></score-sheet>
         <div>
-            <a ui-sref="bowling_entry_league_week_match_assign_bowlers({leagueId: scoreController.league.id, weekId: scoreController.week.id, matchId: scoreController.scoreSheet.id, teamId: 2})">Assign Bowlers</a>
+            <a ui-sref="^.assignBowlers({teamId: 2})">Assign Bowlers</a>
         </div>
     </div>
 

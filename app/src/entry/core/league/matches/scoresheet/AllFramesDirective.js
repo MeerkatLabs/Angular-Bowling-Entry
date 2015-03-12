@@ -16,7 +16,7 @@ var AllFramesDirectiveFactory = function($state) {
             $scope.state = function(frameId) {
                 return {
                     leagueId: $state.params.leagueId,
-                        matchId: $state.params.matchId,
+                    matchId: $state.params.matchId,
                     weekId: $state.params.weekId,
                     gameId: $state.params.gameId,
                     frameId: frameId
