@@ -14,7 +14,7 @@ var EditFrameController = function($state, $stateParams, MatchService, league, w
         MatchService.cleanUpScoresheet(scoreSheet);
 
         match.one('scoresheet').customPUT(scoreSheet).then(function() {
-            $state.go('^');
+            $state.go('^.detail');
         });
     };
 
