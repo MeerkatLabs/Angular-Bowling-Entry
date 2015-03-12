@@ -79,3 +79,5 @@ crashlytics-build.properties
 
 /app/build
 /app/bower_component
+
+_SpecRunner.html

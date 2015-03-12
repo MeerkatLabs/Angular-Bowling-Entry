@@ -56,7 +56,7 @@ module.exports = function(grunt) {
         },
         watch: {
             scripts: {
-                files: ['Gruntfile.js', 'app/src/**/*.js', 'app/tests/**/*.js'],
+                files: ['Gruntfile.js', 'app/src/**/*.js', 'app/test/**/*.js'],
                 tasks: ['development_js']
             },
             sass: {
@@ -64,54 +64,38 @@ module.exports = function(grunt) {
                 tasks: ['sass']
             }
 
+        },
+        jasmine: {
+            bowling_entry: {
+                src: [
+                    'app/src/**/_*.js',
+                    'app/src/**/*.js',
+                ],
+                options: {
+                    vendor: [
+                        'app/bower_component/angular/angular.min.js',
+                        'app/bower_component/angular-animate/angular-animate.js',
+                        'app/bower_component/angular-aria/angular-aria.js',
+                        'app/bower_component/angular-jwt/dist/angular-jwt.js',
+                        'app/bower_component/angular-material/angular-material.js',
+                        'app/bower_component/angular-material-icons/angular-material-icons.js',
+                        'app/bower_component/angular-messages/angular-messages.js',
+                        'app/bower_component/angular-resource/angular-resource.js',
+                        'app/bower_component/angular-ui-router/release/angular-ui-router.js',
+                        'app/bower_component/lodash/dist/lodash.js',
+                        'app/bower_component/mkl-login-jwt/dist/mkl-login-jwt.js',
+                        'app/bower_component/restangular/dist/restangular.js',
+                        'app/bower_component/angular-mocks/angular-mocks.js'
+                    ],
+                    specs: ['app/test/**/*.js'],
+                    template: require('grunt-template-jasmine-istanbul'),
+                    templateOptions: {
+                        coverage: 'coverage/coverage.json',
+                        report: 'coverage'
+                    }
+                }
+            }
         }
-        //jasmine: {
-        //    trafalgar: {
-        //        src: [
-        //            'javascript/**/_*.js', 'javascript/**/*.js'
-        //        ],
-        //        options: {
-        //            vendor: [
-        //                'static/jasmine/jasmine.js',
-        //                'static/jasmine/jasmine-html.js',
-        //                'static/jasmine/boot.js',
-        //                'static/jquery/jquery-2.1.1.min.js',
-        //                'static/jquery/jquery.cookie.js',
-        //                'static/jsrender/jsrender.min.js',
-        //                'static/jasmine-jquery/jasmine-jquery.js',
-        //                'static/jquery/jquery-ui.min.js'
-        //            ],
-        //            specs: ['tests/**/_*.js', 'tests/**/*.js'],
-        //            template: require('grunt-template-jasmine-istanbul'),
-        //            templateOptions: {
-        //                coverage: 'output/coverage/coverage.json',
-        //                report: 'output/coverage'
-        //                //thresholds: {
-        //                //    lines: 75,
-        //                //    statements: 75,
-        //                //    branches: 75,
-        //                //    functions: 90
-        //                //}
-        //            }
-        //        }
-        //    },
-        //    minimized: {
-        //        src: 'static/trafalgar.min.js',
-        //        options: {
-        //            vendor: [
-        //                'static/jasmine/jasmine.js',
-        //                'static/jasmine/jasmine-html.js',
-        //                'static/jasmine/boot.js',
-        //                'static/jquery/jquery-2.1.1.min.js',
-        //                'static/jquery/jquery.cookie.js',
-        //                'static/jsrender/jsrender.min.js',
-        //                'static/jasmine-jquery/jasmine-jquery.js',
-        //                'static/jquery/jquery-ui.min.js'
-        //            ],
-        //            specs: 'static/trafalgar.test.js'
-        //        }
-        //    }
-        //}
     });
 
     // Load the plugin that provides the "uglify" task.
@@ -123,7 +107,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jasmine');
 
     // Default task(s).
-    grunt.registerTask('development_js', ['jshint', 'concat']);
+    grunt.registerTask('development_js', ['jshint', 'concat', 'jasmine']);
     grunt.registerTask('development', ['development_js', 'sass']);
     grunt.registerTask('default', ['development', 'uglify']);
 };

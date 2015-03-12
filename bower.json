@@ -24,5 +24,8 @@
     "angular-material-icons": "~0.4.0",
     "restangular": "~1.4.0",
     "mkl-login-jwt": "https://github.com/MeerkatLabs/mkl-login-jwt.git"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.3.14"
   }
 }
