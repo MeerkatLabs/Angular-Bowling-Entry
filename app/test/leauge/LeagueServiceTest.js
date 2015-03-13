@@ -121,6 +121,26 @@ describe('league:LeagueServiceTest', function() {
             $httpBackend.flush();
 
         }));
+
+        it('should make sure that the additional methods are all defined', inject(function(LeagueService) {
+
+            var league = null;
+            LeagueService.getLeague(1).then(function(_league) {
+
+                league = _league;
+
+                expect(league.getTeam).toBeDefined();
+                expect(league.getSubstitutes).toBeDefined();
+                expect(league.getSubstitute).toBeDefined();
+                expect(league.getWeek).toBeDefined();
+
+            });
+
+            $httpBackend.flush();
+
+            expect(league).not.toBeNull();
+
+        }));
     });
 
     describe('league:LeagueServiceTest:_createLeague', function(LeagueService) {
