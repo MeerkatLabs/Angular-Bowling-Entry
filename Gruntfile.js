@@ -57,7 +57,7 @@ module.exports = function(grunt) {
         watch: {
             scripts: {
                 files: ['Gruntfile.js', 'app/src/**/*.js', 'app/test/**/*.js'],
-                tasks: ['development_js']
+                tasks: ['development_js', 'karma:unit:run']
             },
             sass: {
                 files: ['Gruntfile.js', 'app/sass/**/*.scss'],
@@ -65,35 +65,10 @@ module.exports = function(grunt) {
             }
 
         },
-        jasmine: {
-            bowling_entry: {
-                src: [
-                    'app/src/**/_*.js',
-                    'app/src/**/*.js',
-                ],
-                options: {
-                    vendor: [
-                        'app/bower_component/angular/angular.min.js',
-                        'app/bower_component/angular-animate/angular-animate.js',
-                        'app/bower_component/angular-aria/angular-aria.js',
-                        'app/bower_component/angular-jwt/dist/angular-jwt.js',
-                        'app/bower_component/angular-material/angular-material.js',
-                        'app/bower_component/angular-material-icons/angular-material-icons.js',
-                        'app/bower_component/angular-messages/angular-messages.js',
-                        'app/bower_component/angular-resource/angular-resource.js',
-                        'app/bower_component/angular-ui-router/release/angular-ui-router.js',
-                        'app/bower_component/lodash/dist/lodash.js',
-                        'app/bower_component/mkl-login-jwt/dist/mkl-login-jwt.js',
-                        'app/bower_component/restangular/dist/restangular.js',
-                        'app/bower_component/angular-mocks/angular-mocks.js'
-                    ],
-                    specs: ['app/test/**/*.js'],
-                    template: require('grunt-template-jasmine-istanbul'),
-                    templateOptions: {
-                        coverage: 'coverage/coverage.json',
-                        report: 'coverage'
-                    }
-                }
+        karma: {
+            unit: {
+                configFile: 'karma.conf.js',
+                background: true
             }
         }
     });
@@ -105,9 +80,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
+    grunt.loadNpmTasks('grunt-karma');
 
     // Default task(s).
-    grunt.registerTask('development_js', ['jshint', 'concat', 'jasmine']);
+    grunt.registerTask('development_js', ['jshint', 'concat']);
     grunt.registerTask('development', ['development_js', 'sass']);
     grunt.registerTask('default', ['development', 'uglify']);
+
 };
