@@ -23,6 +23,7 @@
     "ng-html2js": "~2.0.0",
     "karma-ng-html2js-preprocessor": "~0.1.2",
     "karma-coverage": "~0.2.7",
-    "grunt-karma": "~0.10.1"
+    "grunt-karma": "~0.10.1",
+    "karma-phantomjs-launcher": "~0.1.4"
   }
 }
