@@ -23,7 +23,9 @@ angular.module('bowling.entry.core')
             abstract: true,
             template: '<ui-view/>',
             resolve: {
-                league: ['$stateParams', 'LeagueService', function($stateParams, LeagueService) {
+                // Knowingly requesting the user be required for this resolve even though it is not used.  Forces
+                // serialization of the two method calls so that the token is not requested twice.
+                league: ['$stateParams', 'LeagueService', 'user', function($stateParams, LeagueService) {
                     return LeagueService.getLeague($stateParams.leagueId);
                 }]
             }
