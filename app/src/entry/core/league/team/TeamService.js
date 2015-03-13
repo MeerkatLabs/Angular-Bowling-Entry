@@ -1,36 +1,9 @@
 /**
  * Service factory that will work with the team objects.
  */
-var TeamService = function($q, LeagueService) {
+var TeamService = function() {
 
     var TeamService = {};
-
-    var currentTeam = null;
-
-    TeamService.getCurrentTeam = function() {
-        return currentTeam;
-    };
-
-    /**
-     * Fetch the team with the provided team Id.
-     * @param leagueId league identifier.
-     * @param teamId team identifier.
-     * @returns {*}
-     */
-    TeamService.getTeam = function(teamId) {
-
-        var currentLeague = LeagueService.getCurrentLeague();
-
-        if (currentLeague === null) {
-            return $q.reject('Current League is not defined');
-        }
-
-        return currentLeague.getTeam(teamId).then(function(team) {
-            currentTeam = team;
-            return currentTeam;
-        });
-
-    };
 
     /**
      * Create a new team object.
@@ -49,7 +22,7 @@ var TeamService = function($q, LeagueService) {
 };
 
 angular.module('bowling.entry.core')
-    .factory('TeamService', ['$q', 'LeagueService', TeamService])
+    .factory('TeamService', [TeamService])
     .config(['RestangularProvider', function(RestangularProvider) {
         RestangularProvider.extendModel('teams', function(model) {
             model.getBowlers = function() {
