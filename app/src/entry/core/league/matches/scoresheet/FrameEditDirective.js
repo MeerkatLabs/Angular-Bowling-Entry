@@ -109,14 +109,6 @@ var FrameEditDirectiveFactory = function() {
             frame.throws.push(count);
         };
 
-        $scope.clearThrows = function() {
-            frame.throws.splice(0, frame.throws.length);
-        };
-
-        $scope.deleteThrow = function() {
-            frame.throws.pop();
-        };
-
         $scope.isThrowDisabled = function(count) {
 
             calculateHelpers();
@@ -209,9 +201,8 @@ var FrameEditDirectiveFactory = function() {
             $scope.frame = editFrame;
 
             console.log('Calling Frame Editor Input');
-            if (frameNumber < 10) {
-                handlersFor1Through9($scope);
-            } else {
+            handlersFor1Through9($scope);
+            if (frameNumber === 10) {
                 handlersFor10($scope);
             }
         }
