@@ -1,8 +1,4 @@
-
-<p>{{ teamController.team }}</p>
-
 <p>{{ teamController.team.name }}</p>
-
 
 <div layout="row">
     <div flex>
@@ -13,7 +9,6 @@
                         <h3>{{bowler.name}}</h3>
                         <p><a>Bowler Details</a></p>
                         <p><a ui-sref="^.bowler.edit({bowlerId: bowler.id})">Edit Bowler</a></p>
-                        <p>{{ bowler }}</p>
                     </div>
                 </md-item-content>
                 <md-divider ng-if="!$last"></md-divider>
