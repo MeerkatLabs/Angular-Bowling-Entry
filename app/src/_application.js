@@ -8,11 +8,11 @@ angular.module('bowling', ['bowling.core', 'bowling.entry', 'mkl-login-jwt', 're
 
         $stateProvider.state('bowling', {
                 url: '/',
-                template: '<ui-view/>',
+                templateUrl: 'partials/base.html',
                 title: 'Welcome'
             }).state('bowling.main', {
                 url: 'main',
-                templateUrl: 'partials/base.html',
+                templateUrl: 'partials/main.html',
                 title: 'Welcome'
             });
     }]).config(['JWTLoginServiceProvider', function(JWTLoginServiceProvider) {
