@@ -19,16 +19,7 @@ angular.module('bowling.entry.core')
     .controller('TeamDetailController', ['$stateParams', 'TeamService', 'league', 'team', TeamDetailController])
     .config(['$stateProvider', function($stateProvider) {
 
-        $stateProvider.state('bowling.league.team', {
-                url: '/:teamId',
-                abstract: true,
-                template: '<ui-view/>',
-                resolve: {
-                    team: ['$stateParams', 'league', function($stateParams, league) {
-                        return league.getTeam($stateParams.teamId);
-                    }]
-                }
-            }).state('bowling.league.team.detail', {
+        $stateProvider.state('bowling.league.team.detail', {
                 url: '/',
                 templateUrl: 'partials/entry/leagues/teams/detail.html',
                 title: 'Team Detail',
