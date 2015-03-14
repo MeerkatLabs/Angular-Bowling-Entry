@@ -1,19 +1,17 @@
 /**
  * Controller responsible for the creation of a new bowler on a team.
  */
-var CreateBowlerController = function($stateParams, $state, BowlerService, league, team) {
+var CreateBowlerController = function($state, BowlerService, team) {
 
     var controller = this;
 
-    controller.substitute = {
+    controller.bowler = {
         name: '',
         handicap: null
     };
 
     controller.submit = function() {
-        console.log('Creating new bowler');
-
-        BowlerService.createBowler(team, controller.substitute).then(function() {
+        BowlerService.createBowler(team, controller.bowler).then(function() {
             $state.go('^.detail');
         });
     };
@@ -21,13 +19,13 @@ var CreateBowlerController = function($stateParams, $state, BowlerService, leagu
 };
 
 angular.module('bowling.entry.core')
-    .controller('CreateBowlerController', ['$stateParams', '$state', 'BowlerService', 'league', 'team', CreateBowlerController])
+    .controller('CreateBowlerController', ['$state', 'BowlerService', 'team', CreateBowlerController])
     .config(['$stateProvider', function($stateProvider) {
         $stateProvider.state('bowling.league.team.createBowler', {
             url: '/createBowler',
-            templateUrl: 'partials/entry/leagues/substitutes/create.html',
+            templateUrl: 'partials/entry/leagues/teams/bowler/create.html',
             title: 'Create Bowler',
             controller: 'CreateBowlerController',
-            controllerAs: 'subController'
+            controllerAs: 'bowlerController'
         });
     }]);

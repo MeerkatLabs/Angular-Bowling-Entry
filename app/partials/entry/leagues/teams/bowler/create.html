@@ -1,0 +1,17 @@
+<h1>Create Bowler</h1>
+
+<form ng-submit="bowlerController.submit()">
+
+    <md-input-container>
+        <label>Name</label>
+        <input ng-model="bowlerController.bowler.name" type="text" required>
+    </md-input-container>
+
+    <md-input-container>
+        <label>Handicap</label>
+        <input ng-model="bowlerController.bowler.handicap" type="number">
+    </md-input-container>
+
+    <md-button class="md-raised md-primary">Add Bowler</md-button>
+
+</form>
