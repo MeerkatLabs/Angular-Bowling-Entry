@@ -1,0 +1,17 @@
+<h1>Edit Bowler</h1>
+
+<form ng-submit="editController.submit()">
+
+    <md-input-container>
+        <label for="name">Name</label>
+        <input id="name" ng-model="editController.bowler.name" type="text" required>
+    </md-input-container>
+
+    <md-input-container>
+        <label for="handicap">Handicap</label>
+        <input id="handicap" ng-model="editController.bowler.handicap" type="number">
+    </md-input-container>
+
+    <md-button class="md-raised md-primary">Edit Bowler</md-button>
+
+</form>

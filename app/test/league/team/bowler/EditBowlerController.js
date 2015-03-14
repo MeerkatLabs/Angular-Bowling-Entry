@@ -3,9 +3,9 @@
  */
 describe('league:team:bowler:CreateBowlerController', function() {
 
-    var httpBackend;
+    var httpBackend, bowlerDefinition;
 
-    var bowlerCreationRegExp = new RegExp('/bowlers/$');
+    var bowlerGetRegExp = new RegExp('/bowlers/1/$');
 
     beforeEach(module('bowling.entry.core'));
 
@@ -13,14 +13,19 @@ describe('league:team:bowler:CreateBowlerController', function() {
 
         $httpBackend = _$httpBackend_;
 
+        bowlerDefinition = {
+            id: 1,
+            name: 'Bowler Name',
+            handicap: 23
+        };
+
         Restangular.setRequestSuffix('/');
         Restangular.setBaseUrl('http://localhost/api');
 
-        $httpBackend.whenPOST(bowlerCreationRegExp).respond(function(status, data, headers, statusText) {
-            return [201, data];
+        $httpBackend.whenGET(bowlerGetRegExp).respond(bowlerDefinition);
+        $httpBackend.whenPUT(bowlerGetRegExp).respond(function(method, url, data, headers) {
+            return [200, data ]
         });
-
-        $httpBackend.whenGET(new RegExp('/teams/1/$')).respond({});
 
     }));
 
@@ -33,32 +38,28 @@ describe('league:team:bowler:CreateBowlerController', function() {
     it('should define the required values in the scope', inject(function($controller) {
 
         var team = jasmine.createSpyObj('team', ['all']);
-        var controller = $controller('CreateBowlerController', {'team': team}, {});
+        var controller = $controller('EditBowlerController', {'bowler': bowlerDefinition}, {});
 
         expect(controller.bowler).toBeDefined();
 
     }));
 
-    it('should submit the newly created object', inject(function($controller, $state, Restangular) {
+    it('should submit the edited object', inject(function($controller, $state, Restangular) {
 
         spyOn($state, 'go');
 
-        $httpBackend.expectGET(new RegExp('/teams/1/$'));
+        $httpBackend.expectGET(new RegExp('/bowlers/1/$'));
 
-        var team;
-        Restangular.one('teams', 1).get().then(function(_team) {
-            team = _team;
+        var bowler;
+        Restangular.one('bowlers', 1).get().then(function(_bowler) {
+            bowler = _bowler;
         });
 
         $httpBackend.flush();
 
-        expect(team).toBeDefined();
-        expect(team.createBowler).toBeDefined();
+        expect(bowler).toBeDefined();
 
-        var controller = $controller('CreateBowlerController', {'team': team}, {});
-
-        controller.bowler.name = 'New Bowler Name';
-        controller.bowler.handicap = 34;
+        var controller = $controller('EditBowlerController', {'bowler': bowler}, {});
 
         controller.submit();
 

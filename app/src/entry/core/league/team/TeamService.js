@@ -33,6 +33,10 @@ angular.module('bowling.entry.core')
                 return this.one('bowlers', bowlerId).get();
             };
 
+            model.createBowler = function(bowlerConfiguration) {
+                return this.all('bowlers').post(bowlerConfiguration);
+            };
+
             return model;
         });
     }]);

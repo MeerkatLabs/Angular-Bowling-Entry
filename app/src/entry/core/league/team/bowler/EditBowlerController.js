@@ -1,26 +1,24 @@
 /**
  * Controller responsible for editing a bowlers details.
  */
-var EditBowlerController = function($stateParams, $state, BowlerService, league, team, bowler) {
-
-    console.log('bowler', bowler);
+var EditBowlerController = function($state, bowler) {
 
     var controller = this;
 
-    controller.substitute = bowler;
+    controller.bowler = bowler;
 
     controller.submit = function() {
         console.log('Editing new substitute');
 
-        BowlerService.save(bowler).then(function() {
-            $state.go('^.detail');
+        bowler.put().then(function() {
+            $state.go('^.^.detail');
         });
     };
 
 };
 
 angular.module('bowling.entry.core')
-    .controller('EditBowlerController', ['$stateParams', '$state', 'BowlerService', 'league', 'team', 'bowler', EditBowlerController])
+    .controller('EditBowlerController', ['$state', 'bowler', EditBowlerController])
     .config(['$stateProvider', function($stateProvider) {
 
         $stateProvider.state('bowling.league.team.bowler', {
@@ -29,23 +27,14 @@ angular.module('bowling.entry.core')
                 template: '<ui-view/>',
                 resolve: {
                     bowler: ['$stateParams', 'team', function($stateParams, team) {
-                        console.log('Resolving bowler');
-                        console.log('Getting Sub: ', $stateParams.bowlerId);
-                        console.log('From Team: ', team);
-
-                        return team.getBowler($stateParams.bowlerId).then(function(sub) {
-                            console.log('Retrieved sub: ', sub);
-                            return sub;
-                        }).catch(function() {
-                            console.log('Failed');
-                        });
+                        return team.getBowler($stateParams.bowlerId);
                     }]
                 }
             }).state('bowling.league.team.bowler.edit', {
                 url: '/edit',
-                templateUrl: 'partials/entry/leagues/substitutes/create.html',
+                templateUrl: 'partials/entry/leagues/teams/bowler/edit.html',
                 title: 'Edit Bowler',
                 controller: 'EditBowlerController',
-                controllerAs: 'subController'
+                controllerAs: 'editController'
             });
     }]);
