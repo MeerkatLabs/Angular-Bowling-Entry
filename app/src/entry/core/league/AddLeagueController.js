@@ -20,7 +20,7 @@ var AddLeagueController = function($state, LeagueService) {
 
     controller.submit = function() {
         LeagueService.createLeague(controller.league).then(function(savedObject) {
-            $state.go('^.league.details', {leagueId: savedObject.id});
+            $state.go('^.league.detail', {leagueId: savedObject.id});
         });
     };
 
