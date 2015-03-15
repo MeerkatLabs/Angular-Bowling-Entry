@@ -1,22 +1,16 @@
 /**
  * Team Detail Controller.
  */
-var TeamDetailController = function($stateParams, TeamService, league, team) {
+var TeamDetailController = function(team) {
 
     var controller = this;
 
-    controller.league = league;
-
     controller.team = team;
-
-    team.getBowlers().then(function(bowlers) {
-        controller.bowlers = bowlers;
-    });
 
 };
 
 angular.module('bowling.entry.core')
-    .controller('TeamDetailController', ['$stateParams', 'TeamService', 'league', 'team', TeamDetailController])
+    .controller('TeamDetailController', ['team', TeamDetailController])
     .config(['$stateProvider', function($stateProvider) {
 
         $stateProvider.state('bowling.league.team.detail', {

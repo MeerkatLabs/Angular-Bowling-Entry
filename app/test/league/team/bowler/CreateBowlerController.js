@@ -20,7 +20,11 @@ describe('league:team:bowler:CreateBowlerController', function() {
             return [201, data];
         });
 
-        $httpBackend.whenGET(new RegExp('/teams/1/$')).respond({});
+        $httpBackend.whenGET(new RegExp('/teams/1/$')).respond({
+            id: 1,
+            name: 'Team Name',
+            bowlers: []
+        });
 
     }));
 
