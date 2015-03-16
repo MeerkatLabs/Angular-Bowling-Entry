@@ -135,6 +135,7 @@ describe('league:LeagueServiceTest', function() {
                 expect(league.getWeek).toBeDefined();
                 expect(league.createTeam).toBeDefined();
                 expect(league.createSubstitute).toBeDefined();
+                expect(league.createWeeks).toBeDefined();
 
             });
 

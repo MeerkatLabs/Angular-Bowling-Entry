@@ -1,7 +1,7 @@
 /**
  * Controller that defines all of the weeks in the league.
  */
-var CreateWeeksController = function($state, WeekService, league) {
+var CreateWeeksController = function($state, league) {
 
     var controller = this;
 
@@ -21,7 +21,7 @@ var CreateWeeksController = function($state, WeekService, league) {
     }
 
     controller.submit = function() {
-        WeekService.createWeeks(controller.weeks, league).then(function() {
+        league.createWeeks(controller.weeks).then(function() {
             $state.go('^.details');
         });
     };
@@ -29,7 +29,7 @@ var CreateWeeksController = function($state, WeekService, league) {
 };
 
 angular.module('bowling.entry.core')
-    .controller('CreateWeeksController', ['$state', 'WeekService', 'league', CreateWeeksController])
+    .controller('CreateWeeksController', ['$state', 'league', CreateWeeksController])
     .config(['$stateProvider', function($stateProvider) {
 
         $stateProvider.state('bowling.league.createWeeks', {

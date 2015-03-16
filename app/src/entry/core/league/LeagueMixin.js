@@ -71,6 +71,32 @@ angular.module('bowling.entry.core')
             return this.all('substitute').post(configuration);
         };
 
+        /**
+         * An array or a single week to create.
+         * @param {{}[]|{}} weeks
+         */
+        LeagueMixin.createWeeks = function(weeks) {
+
+            var weeksCollection = weeks;
+            if (!angular.isArray(weeks)) {
+                weeksCollection = [weeks];
+            }
+
+            var promises = [];
+
+            var route = this.all('weeks');
+
+            weeksCollection.forEach(function(week) {
+                promises.push(route.post({
+                    week_number: week.weekNumber,
+                    date: $filter('date')(week.date, 'yyyy-MM-dd')
+                }));
+            });
+
+            return $q.all(promises);
+
+        };
+
         // Notify Restangular to override all of the models of route league
         Restangular.extendModel('league', function(model) {
             angular.extend(model, LeagueMixin);
