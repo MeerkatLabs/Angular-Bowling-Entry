@@ -22,7 +22,7 @@ var CreateWeeksController = function($state, league) {
 
     controller.submit = function() {
         league.createWeeks(controller.weeks).then(function() {
-            $state.go('^.details');
+            $state.go('^.detail');
         });
     };
 
