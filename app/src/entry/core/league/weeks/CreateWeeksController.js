@@ -7,12 +7,14 @@ var CreateWeeksController = function($state, WeekService, league) {
 
     controller.weeks = [];
 
+    console.log(league.start_date);
+
     var date = new Date(league.start_date);
 
     for (var weekNumber = 1; weekNumber <= league.number_of_weeks; ++weekNumber) {
         controller.weeks.push({
             weekNumber: weekNumber,
-            date: new Date(date.getTime())
+            date: new Date(date.getTime() + (date.getTimezoneOffset() * 60 * 1000))
         });
 
         date.setDate(date.getDate() + 7);
