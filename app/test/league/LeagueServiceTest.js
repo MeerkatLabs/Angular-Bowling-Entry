@@ -58,7 +58,7 @@ describe('league:LeagueServiceTest', function() {
             $httpBackend = _$httpBackend_;
 
             Restangular.setRequestSuffix('/');
-            Restangular.setBaseUrl('http://localhost/api')
+            Restangular.setBaseUrl('http://localhost/api');
 
             $httpBackend.whenGET(league01Get)
                 .respond(league01);
@@ -144,12 +144,14 @@ describe('league:LeagueServiceTest', function() {
         }));
     });
 
-    describe('league:LeagueServiceTest:_createLeague', function(LeagueService) {
+    describe('league:LeagueServiceTest:_createLeague', function() {
 
         var league = {};
         var $httpBackend;
 
         var leaguePostRegEx = new RegExp('/league/$');
+
+        var postedLeagueData = null;
 
         beforeEach(inject(function(_$httpBackend_, Restangular) {
             $httpBackend = _$httpBackend_;
@@ -160,12 +162,14 @@ describe('league:LeagueServiceTest', function() {
             $httpBackend.whenPOST(leaguePostRegEx).respond(function(method, url, data, headers) {
                 console.log('returning data');
 
+                postedLeagueData = JSON.parse(data);
                 return [200, data ]
             });
 
         }));
 
         afterEach(function() {
+            postedLeagueData = null;
             $httpBackend.verifyNoOutstandingExpectation();
             $httpBackend.verifyNoOutstandingRequest();
         });
@@ -187,21 +191,22 @@ describe('league:LeagueServiceTest', function() {
                 handicapPercentage: 90
             };
 
+            var leagueCopy = angular.copy(leagueDefinition);
+
             $httpBackend.expectPOST(leaguePostRegEx);
 
             var dataReceived = null;
             LeagueService.createLeague(leagueDefinition).then(function(data) {
                 dataReceived = data;
-                expect(data.name).toBe(leagueDefinition.name);
-                expect(data.start_date).toBe('2015-06-20');
-                expect(data.number_of_weeks).toBe(leagueDefinition.numberOfWeeks);
-                expect(data.number_of_games).toBe(leagueDefinition.numberOfGames);
-                expect(data.players_per_team).toBe(leagueDefinition.playersPerTeam);
-                expect(data.points_per_game).toBe(leagueDefinition.pointsPerGame);
-                expect(data.points_for_totals).toBe(leagueDefinition.pointsForTotals);
-                expect(data.handicap_max).toBe(leagueDefinition.handicapMax);
-                expect(data.handicap_percentage).toBe(leagueDefinition.handicapPercentage);
-
+                expect(postedLeagueData.name).toBe(leagueCopy.name);
+                expect(postedLeagueData.start_date).toBe('2015-06-20');
+                expect(postedLeagueData.number_of_weeks).toBe(leagueCopy.numberOfWeeks);
+                expect(postedLeagueData.number_of_games).toBe(leagueCopy.numberOfGames);
+                expect(postedLeagueData.players_per_team).toBe(leagueCopy.playersPerTeam);
+                expect(postedLeagueData.points_per_game).toBe(leagueCopy.pointsPerGame);
+                expect(postedLeagueData.points_for_totals).toBe(leagueCopy.pointsForTotals);
+                expect(postedLeagueData.handicap_max).toBe(leagueCopy.handicapMax);
+                expect(postedLeagueData.handicap_percentage).toBe(leagueCopy.handicapPercentage);
             });
 
             $httpBackend.flush();

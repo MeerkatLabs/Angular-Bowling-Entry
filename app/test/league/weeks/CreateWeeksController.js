@@ -17,7 +17,7 @@ describe('league:weeks:CreateWeeksController', function() {
 
         var controller = $controller('CreateWeeksController', {league: league}, {});
 
-        expect(controller.weeks.length).toBe(league.number_of_weeks);
+        expect(controller.weeks.length).toBe(league.numberOfWeeks);
         expect(controller.weeks[0].date).toEqual(new Date(2015,10,5));
         expect(controller.weeks[0].weekNumber).toBe(1);
     }));

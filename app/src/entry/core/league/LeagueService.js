@@ -20,20 +20,7 @@ var LeagueService = function($filter, Restangular) {
      * @param {{}} leagueConfiguration
      */
     LeagueService.createLeague = function(leagueConfiguration) {
-
-        var encodedConfiguration = {
-            name: leagueConfiguration.name,
-            start_date: $filter('date')(leagueConfiguration.startDate, 'yyyy-MM-dd'),
-            number_of_weeks: leagueConfiguration.numberOfWeeks,
-            number_of_games: leagueConfiguration.numberOfGames,
-            players_per_team: leagueConfiguration.playersPerTeam,
-            points_per_game: leagueConfiguration.pointsPerGame,
-            points_for_totals: leagueConfiguration.pointsForTotals,
-            handicap_max: leagueConfiguration.handicapMax,
-            handicap_percentage: leagueConfiguration.handicapPercentage
-        };
-
-        return Restangular.all('league').post(encodedConfiguration).then(function(newLeague) {
+        return Restangular.all('league').post(leagueConfiguration).then(function(newLeague) {
             currentLeague = newLeague;
             return currentLeague;
         });
