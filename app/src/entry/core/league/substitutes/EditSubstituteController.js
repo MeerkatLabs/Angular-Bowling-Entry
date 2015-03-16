@@ -1,26 +1,20 @@
 /**
  * Controller that allows for the editing of a substitutes details.
  */
-var EditSubstituteController = function($state, SubstituteService, league, substitute) {
-
-    console.log('substitute', substitute);
-
+var EditSubstituteController = function($state, substitute) {
     var controller = this;
-
     controller.substitute = substitute;
 
     controller.submit = function() {
-        console.log('Editing new substitute');
-
-        SubstituteService.editSubstitute(substitute).then(function() {
-            $state.go('^.^.details');
+        substitute.put().then(function() {
+            $state.go('^.^.detail');
         });
     };
 
 };
 
 angular.module('bowling.entry.core')
-    .controller('EditSubstituteController', ['$state', 'SubstituteService', 'league', 'substitute', EditSubstituteController])
+    .controller('EditSubstituteController', ['$state', 'substitute', EditSubstituteController])
     .config(['$stateProvider', function($stateProvider) {
         $stateProvider.state('bowling.league.sub', {
                 url: '/sub/:subId',
