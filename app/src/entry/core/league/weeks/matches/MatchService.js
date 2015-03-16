@@ -1,7 +1,7 @@
 /**
  * Service factory definition of the match service.
  */
-var MatchServiceFactory = function() {
+var MatchServiceFactory = function(BOWLING_ROUTES) {
 
     var MatchService = {};
 
@@ -21,7 +21,7 @@ var MatchServiceFactory = function() {
 
         };
 
-        return week.all('matches').post(encodedConfiguration);
+        return week.all(BOWLING_ROUTES.MATCH).post(encodedConfiguration);
 
     };
 
@@ -47,7 +47,7 @@ var MatchServiceFactory = function() {
            });
         });
 
-        return match.one('matchTeam', teamNumber).customPUT(encodedConfiguration);
+        return match.one(BOWLING_ROUTES.MATCH_TEAM, teamNumber).customPUT(encodedConfiguration);
 
     };
 
@@ -110,12 +110,12 @@ var MatchServiceFactory = function() {
 };
 
 angular.module('bowling.entry.core')
-    .factory('MatchService', [MatchServiceFactory])
-    .config(['RestangularProvider', function(RestangularProvider) {
+    .factory('MatchService', ['BOWLING_ROUTES', MatchServiceFactory])
+    .config(['RestangularProvider', 'BOWLING_ROUTES', function(RestangularProvider, BOWLING_ROUTES) {
         RestangularProvider.extendModel('matches', function(model) {
 
             model.getScoreSheet = function() {
-                return this.one('scoresheet').get();
+                return this.one(BOWLING_ROUTES.SCORESHEET).get();
             };
 
             return model;

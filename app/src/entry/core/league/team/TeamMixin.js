@@ -2,7 +2,7 @@
  * Add TeamMixin Mixin to the restangular models.
  */
 angular.module('bowling.entry.core')
-    .run(['Restangular', function(Restangular) {
+    .run(['Restangular', 'BOWLING_ROUTES', function(Restangular, BOWLING_ROUTES) {
 
         /**
          * Definition of the team mixin object.
@@ -17,7 +17,7 @@ angular.module('bowling.entry.core')
         TeamMixin.getBowlers = function() {
             // TODO: Store the content of this into the bowlers method.
             // TODO: Cache the results if possible.
-            return this.all('bowlers').getList();
+            return this.all(BOWLING_ROUTES.BOWLER).getList();
         };
 
         /**
@@ -28,7 +28,7 @@ angular.module('bowling.entry.core')
         TeamMixin.getBowler = function(bowlerId) {
             // TODO: If can retrieve the value from the bowlers list instead of from the hardware
             // TODO: Allow for the force refresh to be called.
-            return this.one('bowlers', bowlerId).get();
+            return this.one(BOWLING_ROUTES.BOWLER, bowlerId).get();
         };
 
         /**
@@ -38,14 +38,14 @@ angular.module('bowling.entry.core')
          */
         TeamMixin.createBowler = function(bowlerConfiguration) {
             var team = this;
-            return this.all('bowlers').post(bowlerConfiguration).then(function(bowler) {
+            return this.all(BOWLING_ROUTES.BOWLER).post(bowlerConfiguration).then(function(bowler) {
                 team.bowlers.push(bowler);
                 return bowler;
             });
         };
 
         // Notify Restangular to override all of the models of route teams
-        Restangular.extendModel('teams', function(model) {
+        Restangular.extendModel(BOWLING_ROUTES.TEAM, function(model) {
             angular.extend(model, TeamMixin);
             return model;
         });

@@ -71,10 +71,10 @@ var LeagueRequestInterceptor = function(element, $filter) {
 };
 
 angular.module('bowling.entry.core')
-    .run(['Restangular', '$filter', function(Restangular, $filter) {
-        Restangular.addElementTransformer('league', false, LeagueTransformer);
+    .run(['$filter', 'Restangular', 'BOWLING_ROUTES', function($filter, Restangular, BOWLING_ROUTES) {
+        Restangular.addElementTransformer(BOWLING_ROUTES.LEAGUE, false, LeagueTransformer);
         Restangular.addRequestInterceptor(function(element, operation, what, url) {
-            if (what === 'league' && (operation === 'put' || operation === 'post')) {
+            if (what === BOWLING_ROUTES.LEAGUE && (operation === 'put' || operation === 'post')) {
                 return LeagueRequestInterceptor(element, $filter);
             }
 

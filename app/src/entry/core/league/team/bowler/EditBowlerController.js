@@ -8,7 +8,7 @@ var EditBowlerController = function($state, bowler) {
     controller.bowler = bowler;
 
     controller.submit = function() {
-        console.log('Editing new substitute');
+        console.log('Editing bowler');
 
         bowler.put().then(function() {
             $state.go('^.^.detail');

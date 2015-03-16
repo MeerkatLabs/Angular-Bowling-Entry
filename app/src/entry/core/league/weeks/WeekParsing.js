@@ -8,9 +8,6 @@
  * @constructor
  */
 var WeekTransformer = function(element) {
-
-    console.log('Parsing incoming week data');
-
     //The only values that need to be translated are the week_number and the date.
 
     // Translate start_date into a JS Date object.
@@ -31,23 +28,19 @@ var WeekTransformer = function(element) {
  */
 var WeekRequestInterceptor = function(element, $filter) {
 
-    console.log('Translating Week', element);
-
     element.date = $filter('date')(element.date, 'yyyy-MM-dd');
     element.week_number = element.weekNumber;
 
     delete element.weekNumber;
 
-    console.log('Result', element);
-
     return element;
 };
 
 angular.module('bowling.entry.core')
-    .run(['Restangular', '$filter', function(Restangular, $filter) {
-        Restangular.addElementTransformer('weeks', false, WeekTransformer);
+    .run(['$filter', 'Restangular', 'BOWLING_ROUTES', function($filter, Restangular, BOWLING_ROUTES) {
+        Restangular.addElementTransformer(BOWLING_ROUTES.WEEK, false, WeekTransformer);
         Restangular.addRequestInterceptor(function(element, operation, what, url) {
-            if (what === 'weeks' && (operation === 'put' || operation === 'post')) {
+            if (what === BOWLING_ROUTES.WEEK && (operation === 'put' || operation === 'post')) {
                 return WeekRequestInterceptor(element, $filter);
             }
 

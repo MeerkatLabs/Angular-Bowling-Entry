@@ -1,7 +1,7 @@
 /**
  * Definition of the league service.
  */
-var LeagueService = function($filter, Restangular) {
+var LeagueService = function($filter, Restangular, BOWLING_ROUTES) {
 
     var LeagueService = {};
 
@@ -20,7 +20,7 @@ var LeagueService = function($filter, Restangular) {
      * @param {{}} leagueConfiguration
      */
     LeagueService.createLeague = function(leagueConfiguration) {
-        return Restangular.all('league').post(leagueConfiguration).then(function(newLeague) {
+        return Restangular.all(BOWLING_ROUTES.LEAGUE).post(leagueConfiguration).then(function(newLeague) {
             currentLeague = newLeague;
             return currentLeague;
         });
@@ -31,8 +31,7 @@ var LeagueService = function($filter, Restangular) {
      */
     LeagueService.getAll = function() {
 
-        var leagueQuery = Restangular.all('league');
-        console.log('Restangular.all', leagueQuery);
+        var leagueQuery = Restangular.all(BOWLING_ROUTES.LEAGUE);
 
         return leagueQuery.getList();
     };
@@ -52,7 +51,7 @@ var LeagueService = function($filter, Restangular) {
         }
 
         // Otherwise fetch the league and carry on.
-        return Restangular.one('league', leagueId).get().then(function(league) {
+        return Restangular.one(BOWLING_ROUTES.LEAGUE, leagueId).get().then(function(league) {
             currentLeague = league;
             return league;
         });
@@ -63,4 +62,4 @@ var LeagueService = function($filter, Restangular) {
 };
 
 angular.module('bowling.entry.core')
-    .factory('LeagueService', ['$filter', 'Restangular', LeagueService]);
+    .factory('LeagueService', ['$filter', 'Restangular', 'BOWLING_ROUTES', LeagueService]);
