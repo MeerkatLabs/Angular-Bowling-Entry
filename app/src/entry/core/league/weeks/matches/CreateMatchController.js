@@ -1,7 +1,7 @@
 /**
  * Controller responsible for the creation of the match between two teams in a specific week.
  */
-var CreateMatchController = function($state, MatchService, league, week) {
+var CreateMatchController = function($state, league, week) {
 
     var controller = this;
 
@@ -20,14 +20,14 @@ var CreateMatchController = function($state, MatchService, league, week) {
      */
     controller.submit = function() {
         console.log('controller.match', controller.match);
-        MatchService.createMatch(controller.match, week).then(function() {
+        week.createMatch(controller.match).then(function() {
             //TODO: Goto the match details.
         });
     };
 };
 
 angular.module('bowling.entry.core')
-    .controller('CreateMatchController', ['$state', 'MatchService', 'league', 'week', CreateMatchController])
+    .controller('CreateMatchController', ['$state', 'league', 'week', CreateMatchController])
     .config(['$stateProvider', function($stateProvider) {
 
         $stateProvider.state('bowling.league.week.createMatch', {

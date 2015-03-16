@@ -1,7 +1,7 @@
 /**
  * Controller that will assign bowlers to a specific match.
  */
-var AssignBowlersController = function($state, $stateParams, MatchService, league, week, match, team, teamDefinition, leagueSubstitutes) {
+var AssignBowlersController = function($state, $stateParams, league, week, match, team, teamDefinition, leagueSubstitutes) {
     var controller = this;
 
     var availableBowlersArray = teamDefinition.bowlers.concat(leagueSubstitutes);
@@ -31,7 +31,7 @@ var AssignBowlersController = function($state, $stateParams, MatchService, leagu
             bowlers: controller.currentBowlers
         };
 
-        MatchService.assignBowlers(configuration, match).then(function() {
+        match.assignBowlers(configuration).then(function() {
             $state.go('^.details');
         });
     };
@@ -39,7 +39,7 @@ var AssignBowlersController = function($state, $stateParams, MatchService, leagu
 };
 
 angular.module('bowling.entry.core')
-    .controller('AssignBowlersController', ['$state', '$stateParams', 'MatchService', 'league', 'week', 'match', 'team', 'teamDefinition', 'leagueSubstitutes',
+    .controller('AssignBowlersController', ['$state', '$stateParams', 'league', 'week', 'match', 'team', 'teamDefinition', 'leagueSubstitutes',
                 AssignBowlersController])
     .config(['$stateProvider', function($stateProvider) {
 
