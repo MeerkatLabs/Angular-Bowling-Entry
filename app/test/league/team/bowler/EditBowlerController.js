@@ -1,7 +1,7 @@
 /**
  * Created by rerobins on 3/13/15.
  */
-describe('league:team:bowler:CreateBowlerController', function() {
+describe('league:team:bowler:EditBowlerController', function() {
 
     var httpBackend, bowlerDefinition;
 
