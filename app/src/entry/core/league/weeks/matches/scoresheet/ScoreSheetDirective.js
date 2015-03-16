@@ -8,7 +8,7 @@ var ScoreSheetDirectiveFactory = function() {
         scope: {
             league: '&'
         },
-        templateUrl: 'partials/entry/leagues/matches/scoresheet/display.html',
+        templateUrl: 'partials/entry/leagues/weeks/matches/scoresheet/display.html',
         link: function($scope, elem, attrs, ngModelController) {
 
             /*

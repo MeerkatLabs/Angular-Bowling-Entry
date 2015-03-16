@@ -25,7 +25,7 @@ angular.module('bowling.entry.core')
                 template: '<ui-view/>'
             }).state('bowling.league.week.match.game.detail', {
                 url: '/',
-                templateUrl: 'partials/entry/leagues/matches/games/detail.html',
+                templateUrl: 'partials/entry/leagues/weeks/matches/games/detail.html',
                 title: 'Game Details',
                 controller: 'GameDetailController',
                 controllerAs: 'gameController'

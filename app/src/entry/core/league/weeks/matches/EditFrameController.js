@@ -26,7 +26,7 @@ angular.module('bowling.entry.core')
 
         $stateProvider.state('bowling.league.week.match.game.frame', {
             url: '/:frameId/',
-            templateUrl: 'partials/entry/leagues/matches/games/frames/frame.html',
+            templateUrl: 'partials/entry/leagues/weeks/matches/games/frames/frame.html',
             title: 'Frame Details',
             controller: 'EditFrameController',
             controllerAs: 'frameController'

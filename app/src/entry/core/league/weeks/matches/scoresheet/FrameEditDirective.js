@@ -163,7 +163,7 @@ var FrameEditDirectiveFactory = function() {
             frameNumber: '&',
             gameNumber: '&'
         },
-        templateUrl: 'partials/entry/leagues/matches/games/frames/frameEdit.html',
+        templateUrl: 'partials/entry/leagues/weeks/matches/games/frames/frameEdit.html',
         link: function($scope, elem, attr) {
 
             console.log('Calling Frame Editor Parent');

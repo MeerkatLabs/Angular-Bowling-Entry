@@ -45,7 +45,7 @@ angular.module('bowling.entry.core')
 
         $stateProvider.state('bowling.league.week.match.assignBowlers', {
             url: '/assign/:teamId',
-            templateUrl: 'partials/entry/leagues/matches/assignBowlers.html',
+            templateUrl: 'partials/entry/leagues/weeks/matches/assignBowlers.html',
             title: 'Assign Bowlers',
             controller: 'AssignBowlersController',
             controllerAs: 'assignBowlers',

@@ -32,7 +32,7 @@ angular.module('bowling.entry.core')
 
         $stateProvider.state('bowling.league.week.createMatch', {
             url: '/createMatch',
-            templateUrl: 'partials/entry/leagues/matches/create.html',
+            templateUrl: 'partials/entry/leagues/weeks/matches/create.html',
             title: 'Create Match',
             controller: 'CreateMatchController',
             controllerAs: 'createController'

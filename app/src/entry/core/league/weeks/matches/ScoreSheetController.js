@@ -45,7 +45,7 @@ angular.module('bowling.entry.core')
                 }
             }).state('bowling.league.week.match.scoresheet', {
                 url: '/scoresheet',
-                templateUrl: 'partials/entry/leagues/matches/scoresheet.html',
+                templateUrl: 'partials/entry/leagues/weeks/matches/scoresheet.html',
                 title: 'Score Sheet',
                 controller: 'ScoresheetController',
                 controllerAs: 'scoreController'
