@@ -2,7 +2,7 @@
  * Add League Mixin to the restangular models.
  */
 angular.module('bowling.entry.core')
-    .run(['Restangular', 'BOWLING_ROUTES', function(Restangular, BOWLING_ROUTES) {
+    .run(['$filter', '$q', 'Restangular', 'BOWLING_ROUTES', function($filter, $q, Restangular, BOWLING_ROUTES) {
 
         /**
          * League Mixin Definition for all of the restangular league defined objects.
