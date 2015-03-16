@@ -63,6 +63,14 @@ angular.module('bowling.entry.core')
             });
         };
 
+        /**
+         * Create new substitute object.
+         * @param configuration substitute definition.
+         */
+        LeagueMixin.createSubstitute = function(configuration) {
+            return this.all('substitute').post(configuration);
+        };
+
         // Notify Restangular to override all of the models of route league
         Restangular.extendModel('league', function(model) {
             angular.extend(model, LeagueMixin);

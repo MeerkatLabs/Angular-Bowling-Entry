@@ -5,11 +5,6 @@ var SubstituteService = function() {
 
     var SubstituteService = {};
 
-    SubstituteService.createSubstitute = function(league, configuration) {
-        return league.all('substitute').post(configuration);
-
-    };
-
     SubstituteService.editSubstitute = function(sub) {
         return sub.put();
     };
