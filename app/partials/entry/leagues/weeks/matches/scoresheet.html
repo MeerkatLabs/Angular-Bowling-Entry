@@ -2,8 +2,7 @@
 
 <div layout="column">
     <div layout="column" flex>
-        <score-sheet league="scoreController.league"
-                     ng-model="scoreController.scoreSheet.team1"></score-sheet>
+        <score-sheet league="scoreController.league" ng-model="scoreController.scoreSheet.team1"></score-sheet>
         <div>
             <a ui-sref="^.assignBowlers({teamId: 1})">Assign Bowlers</a>
         </div>

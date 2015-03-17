@@ -35,13 +35,13 @@
             <td colspan="2" style="background: lightgray"></td>
             <th colspan="2">Team Handicap</th>
             <td class="text-center" ng-repeat="label in gameLabels track by $index">{{ teamHandicap }}</td>
-            <td class="text-center">{{ teamHandicap * league().number_of_games }}</td>
+            <td class="text-center">{{ seriesTotalHandicap }}</td>
         </tr>
         <tr>
             <td colspan="2" style="background: lightgray"></td>
             <th colspan="2">Totals</th>
             <td class="text-center" ng-repeat="total in totals track by $index">{{ total }}</td>
-            <td class="text-center">{{ teamHandicap * league().number_of_games + seriesScratch }}</td>
+            <td class="text-center">{{ seriesTotal }}</td>
         </tr>
     </tbody>
 </table>
