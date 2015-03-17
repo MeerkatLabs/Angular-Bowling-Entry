@@ -13,7 +13,7 @@ var ScoresheetController = function($state, league, week, match, scoreSheet) {
     controller.match = scoreSheet;
 
     controller.gameLabels = [];
-    for (var i = 0; i < league.number_of_games; ++i) {
+    for (var i = 0; i < league.numberOfGames; ++i) {
         controller.gameLabels.push(i+1);
     }
 
@@ -45,7 +45,7 @@ angular.module('bowling.entry.core')
                 }
             }).state('bowling.league.week.match.scoresheet', {
                 url: '/scoresheet',
-                templateUrl: 'partials/entry/leagues/weeks/matches/scoresheet.html',
+                templateUrl: 'partials/entry/leagues/weeks/matches/scoresheet/scoresheet.html',
                 title: 'Score Sheet',
                 controller: 'ScoresheetController',
                 controllerAs: 'scoreController'

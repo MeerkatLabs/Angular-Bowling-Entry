@@ -4,7 +4,7 @@
 var AllFramesDirectiveFactory = function() {
 
     return {
-        templateUrl: 'partials/entry/leagues/weeks/matches/games/allFrames.html',
+        templateUrl: 'partials/entry/leagues/weeks/matches/games/frames/allFrames.html',
         scope: {
             team: '&',
             gameNumber: '&'
