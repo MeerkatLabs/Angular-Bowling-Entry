@@ -10,10 +10,8 @@ var FrameEditDirectiveFactory = function() {
         var frame = $scope.frame;
 
         $scope.throwBall = function(count) {
-            if (frame.throws.length === 0) {
+            if (!$scope.isThrowDisabled(count)) {
                 frame.throws.push(count);
-            } else if (frame.throws.length === 1) {
-                frame.throws.push(Math.min(count, 10 - count));
             }
         };
 
@@ -103,10 +101,6 @@ var FrameEditDirectiveFactory = function() {
             }
 
             canThrow = result;
-        };
-
-        $scope.throwBall = function(count) {
-            frame.throws.push(count);
         };
 
         $scope.isThrowDisabled = function(count) {
