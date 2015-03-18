@@ -16,16 +16,7 @@ var EditSubstituteController = function($state, substitute) {
 angular.module('bowling.entry.core')
     .controller('EditSubstituteController', ['$state', 'substitute', EditSubstituteController])
     .config(['$stateProvider', function($stateProvider) {
-        $stateProvider.state('bowling.league.sub', {
-                url: '/sub/:subId',
-                abstract: true,
-                template: '<ui-view/>',
-                resolve: {
-                    substitute: ['$stateParams', 'league', function($stateParams, league) {
-                        return league.getSubstitute($stateParams.subId);
-                    }]
-                }
-            }).state('bowling.league.sub.edit', {
+        $stateProvider.state('bowling.league.sub.edit', {
                 url: '/edit',
                 templateUrl: 'partials/entry/leagues/substitutes/create.html',
                 title: 'Edit Substitute',
