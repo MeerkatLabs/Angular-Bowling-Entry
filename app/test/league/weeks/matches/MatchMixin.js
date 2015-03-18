@@ -1,13 +1,13 @@
 /**
  * Created by rerobins on 3/16/15.
  */
-describe('leauge:weeks:matches:scoresheet:ScoresheetMixin', function() {
+describe('leauge:weeks:matches:MatchMixin', function() {
 
     beforeEach(module('bowling.entry.core'));
 
     it('should clean up the spread sheet', inject(function(Restangular, BOWLING_ROUTES) {
 
-        var scoresheet = {
+        var match = {
             team1: {
                 bowlers: [
                     {
@@ -41,18 +41,18 @@ describe('leauge:weeks:matches:scoresheet:ScoresheetMixin', function() {
             }
         };
 
-        Restangular.restangularizeElement(null, scoresheet, BOWLING_ROUTES.SCORESHEET);
+        Restangular.restangularizeElement(null, match, BOWLING_ROUTES.MATCH);
 
-        scoresheet.clean();
+        match.clean();
 
         // The frames without throws should be removed.
-        expect(scoresheet.team1.bowlers[0].games[0].frames.length).toBe(2);
+        expect(match.team1.bowlers[0].games[0].frames.length).toBe(2);
 
-        expect(scoresheet.team1.bowlers[0].games[0].frames[0].frame_number).toBe(2);
-        expect(scoresheet.team1.bowlers[0].games[0].frames[0].throws).toBe('2,4');
+        expect(match.team1.bowlers[0].games[0].frames[0].frame_number).toBe(2);
+        expect(match.team1.bowlers[0].games[0].frames[0].throws).toBe('2,4');
 
-        expect(scoresheet.team1.bowlers[0].games[0].frames[1].frame_number).toBe(4);
-        expect(scoresheet.team1.bowlers[0].games[0].frames[1].throws).toBe('5,5');
+        expect(match.team1.bowlers[0].games[0].frames[1].frame_number).toBe(4);
+        expect(match.team1.bowlers[0].games[0].frames[1].throws).toBe('5,5');
 
     }));
 

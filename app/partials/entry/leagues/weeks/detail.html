@@ -1,11 +1,5 @@
 <h1>Week Detail</h1>
 
-<p>Week: {{ weekController.week }}</p>
-
-<p>League: {{ weekController.league }}</p>
-
-<p>Matches: {{ weekController.matches }}</p>
-
 <p><a ui-sref="^.createMatch">Create Match</a></p>
 
 <div layout="row">
@@ -14,7 +8,7 @@
             <md-item-content>
                 <div class="md-tile-content">
                     <h3>{{match.lanes}}</h3>
-                    <p><a ui-sref="^.match.scoresheet({matchId: match.id})">{{ match.team1.name }} vs. {{ match.team2.name }}</a></p>
+                    <p><a ui-sref="^.match.detail({matchId: match.id})">{{ match.team1.name }} vs. {{ match.team2.name }}</a></p>
                 </div>
             </md-item-content>
             <md-divider ng-if="!$last"></md-divider>

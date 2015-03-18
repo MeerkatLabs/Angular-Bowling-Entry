@@ -1,19 +1,19 @@
 /**
  * Controller responsible for editing a specific frame in a specific game.
  */
-var EditFrameController = function($state, $stateParams, league, week, match, scoreSheet) {
+var EditFrameController = function($state, $stateParams, league, week, match) {
 
     var controller = this;
 
-    controller.scoreSheet = scoreSheet;
+    controller.scoreSheet = match;
     controller.frameNumber = $stateParams.frameId;
     controller.gameNumber = $stateParams.gameId;
 
     controller.submit = function() {
 
-        scoreSheet.clean();
+        match.clean();
 
-        match.one('scoresheet').customPUT(scoreSheet).then(function() {
+        match.patch(match).then(function() {
             $state.go('^.detail');
         });
     };
@@ -21,7 +21,7 @@ var EditFrameController = function($state, $stateParams, league, week, match, sc
 };
 
 angular.module('bowling.entry.core')
-    .controller('EditFrameController', ['$state', '$stateParams', 'league', 'week', 'match', 'scoreSheet', EditFrameController])
+    .controller('EditFrameController', ['$state', '$stateParams', 'league', 'week', 'match', EditFrameController])
     .config(['$stateProvider', function($stateProvider) {
 
         $stateProvider.state('bowling.league.week.match.game.frame', {

@@ -10,7 +10,5 @@ angular.module('bowling.entry.core', ['restangular', 'ngMaterial', 'ngMessages',
         'BOWLER': 'bowlers',
         'WEEK': 'weeks',
         'SUBSTITUTE': 'substitute',
-        'MATCH': 'matches',
-        'SCORESHEET': 'scoresheet',
-        'MATCH_TEAM': 'matchTeam'
+        'MATCH': 'matches'
     });

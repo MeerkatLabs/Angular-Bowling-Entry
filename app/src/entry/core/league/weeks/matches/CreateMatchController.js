@@ -20,8 +20,8 @@ var CreateMatchController = function($state, league, week) {
      */
     controller.submit = function() {
         console.log('controller.match', controller.match);
-        week.createMatch(controller.match).then(function() {
-            //TODO: Goto the match details.
+        week.createMatch(controller.match).then(function(match) {
+            $state.go('^.match.detail', {matchId: match.id});
         });
     };
 };

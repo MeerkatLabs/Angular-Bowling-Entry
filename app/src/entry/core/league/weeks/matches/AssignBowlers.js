@@ -32,7 +32,21 @@ var AssignBowlersController = function($state, $stateParams, league, week, match
         };
 
         match.assignBowlers(configuration).then(function() {
-            $state.go('^.details');
+            // update the scoresheet object with the new bowlers
+            var teamBowlerIndex = 0;
+            controller.currentBowlers.forEach(function(bowlerData) {
+
+                team.bowlers[teamBowlerIndex].definition = bowlerData.val.id;
+                team.bowlers[teamBowlerIndex].name = bowlerData.val.name;
+                team.bowlers[teamBowlerIndex].type = bowlerData.type;
+                team.bowlers[teamBowlerIndex].handicap = bowlerData.handicap;
+                team.bowlers[teamBowlerIndex].average = bowlerData.average;
+
+                teamBowlerIndex++;
+            });
+
+
+            $state.go('^.detail');
         });
     };
 

@@ -28,15 +28,72 @@ angular.module('bowling.entry.core')
                     });
                 });
 
-                return this.one(BOWLING_ROUTES.MATCH_TEAM, teamNumber).customPUT(encodedConfiguration);
+                var matchData = { };
+                if (teamNumber == 1) {
+                    matchData.team1 = encodedConfiguration;
+                } else {
+                    matchData.team2 = encodedConfiguration;
+                }
+
+                return this.patch(matchData);
 
             };
 
-            MatchMixin.getScoreSheet = function() {
-                return this.one(BOWLING_ROUTES.SCORESHEET).get();
+            /**
+             * Cleans up the frame details in a game in order to post the data to the REST service.
+             * @param game
+             */
+            var cleanUpGame = function (game) {
+
+                var framesToRemove = [];
+
+                game.frames.forEach(function (frame) {
+                    if (angular.isArray(frame.throws)) {
+                        if (frame.throws.length > 0) {
+                            frame.throws = frame.throws.join(',');
+                        } else {
+                            framesToRemove.push(frame);
+                        }
+                    }
+                });
+
+                framesToRemove.forEach(function (frame) {
+                    var index = game.frames.indexOf(frame);
+                    if (index > -1) {
+                        game.frames.splice(index, 1);
+                    }
+                });
             };
 
-            // Notify Restangular to override all of the models of route league
+            /**
+             * Cleans up the bowler data for posting to the REST service.
+             * @param bowler
+             */
+            var cleanUpBowler = function (bowler) {
+                bowler.games.forEach(cleanUpGame);
+            };
+
+            /**
+             * Cleans up the team data for posting to the REST service.
+             * @param team
+             */
+            var cleanUpTeams = function (team) {
+                team.bowlers.forEach(cleanUpBowler);
+            };
+
+            /**
+             * Cleans up the score sheet data for posting to the REST service.
+             */
+            MatchMixin.clean = function () {
+
+                // TODO this should return a promise.
+
+                cleanUpTeams(this.team1);
+                cleanUpTeams(this.team2);
+            };
+
+
+        // Notify Restangular to override all of the models of route league
             Restangular.extendModel(BOWLING_ROUTES.MATCH, function(model) {
                 angular.extend(model, MatchMixin);
                 return model;

@@ -1,7 +1,7 @@
 /**
  * Created by rerobins on 3/12/15.
  */
-describe('league:matches:scoresheet:FrameEditDirective', function() {
+describe('league:matches:games:frames:FrameEditDirective', function() {
 
     var bowler = null;
 
