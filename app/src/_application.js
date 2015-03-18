@@ -27,7 +27,7 @@ angular.module('bowling', ['bowling.core', 'bowling.entry', 'mkl-login-jwt', 're
         RestangularProvider.setBaseUrl('http://127.0.0.1:8000/bowling/api');
         RestangularProvider.setRequestSuffix('/');
 
-    }]).config(['jwtInterceptorProvider', function Config(jwtInterceptorProvider) {
+    }]).config(['jwtInterceptorProvider', function (jwtInterceptorProvider) {
 
         jwtInterceptorProvider.authPrefix = 'JWT ';
 
