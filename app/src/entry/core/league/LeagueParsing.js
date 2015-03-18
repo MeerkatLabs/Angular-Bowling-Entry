@@ -5,9 +5,11 @@
 /**
  * Method that will translate an element into JavaScript code style.
  * @param element
+ * @param Restangular
+ * @param BOWLING_ROUTES
  * @constructor
  */
-var LeagueTransformer = function(element) {
+var LeagueTransformer = function(element, Restangular, BOWLING_ROUTES) {
 
     console.log('Parsing incoming league data');
 
@@ -24,6 +26,10 @@ var LeagueTransformer = function(element) {
     element.pointsForTotals = element.points_for_totals;
     element.handicapMax = element.handicap_max;
     element.handicapPercentage = element.handicap_percentage;
+
+    if (element.weeks && angular.isArray(element.weeks)) {
+        Restangular.restangularizeCollection(null, element.weeks, BOWLING_ROUTES.WEEK);
+    }
 
     delete element.start_date;
     delete element.number_of_weeks;
@@ -72,7 +78,9 @@ var LeagueRequestInterceptor = function(element, $filter) {
 
 angular.module('bowling.entry.core')
     .run(['$filter', 'Restangular', 'BOWLING_ROUTES', function($filter, Restangular, BOWLING_ROUTES) {
-        Restangular.addElementTransformer(BOWLING_ROUTES.LEAGUE, false, LeagueTransformer);
+        Restangular.addElementTransformer(BOWLING_ROUTES.LEAGUE, false, function(element) {
+            return LeagueTransformer(element, Restangular, BOWLING_ROUTES);
+        });
         Restangular.addRequestInterceptor(function(element, operation, what, url) {
             if (what === BOWLING_ROUTES.LEAGUE && (operation === 'put' || operation === 'post')) {
                 return LeagueRequestInterceptor(element, $filter);

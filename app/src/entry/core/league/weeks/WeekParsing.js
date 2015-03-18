@@ -37,7 +37,16 @@ var WeekRequestInterceptor = function(element, $filter) {
 };
 
 angular.module('bowling.entry.core')
-    .run(['$filter', 'Restangular', 'BOWLING_ROUTES', function($filter, Restangular, BOWLING_ROUTES) {
+    .run(['Restangular', 'BOWLING_ROUTES', function(Restangular, BOWLING_ROUTES) {
+        Restangular.configuration.getIdFromElem = function(element) {
+            if (element.route === BOWLING_ROUTES.WEEK && angular.isDefined(element.weekNumber)) {
+                return element.weekNumber;
+            } else {
+                return Restangular.configuration.getFieldFromElem(Restangular.configuration.restangularFields.id, element);
+            }
+        };
+
+    }]).run(['$filter', 'Restangular', 'BOWLING_ROUTES', function($filter, Restangular, BOWLING_ROUTES) {
         Restangular.addElementTransformer(BOWLING_ROUTES.WEEK, false, WeekTransformer);
         Restangular.addRequestInterceptor(function(element, operation, what, url) {
             if (what === BOWLING_ROUTES.WEEK && (operation === 'put' || operation === 'post')) {

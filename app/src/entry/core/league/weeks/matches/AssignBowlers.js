@@ -72,7 +72,7 @@ angular.module('bowling.entry.core')
                     }
                 }],
                 teamDefinition: ['team', 'league', function(team, league) {
-                    return league.getTeam(team.definition_id);
+                    return league.getTeam(team.id);
                 }],
                 leagueSubstitutes: ['league', function(league) {
                     return league.getSubstitutes();

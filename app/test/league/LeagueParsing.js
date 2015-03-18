@@ -11,7 +11,7 @@ describe('league:LeagueParsing', function() {
         $filter = _$filter_;
     }));
 
-    it('should test the parsing of an incoming league values', function() {
+    it('should test the parsing of an incoming league values', inject(function(Restangular, BOWLING_ROUTES) {
         var incomingLeagueValue = {
             "id": 3,
             "name": "Polar Bowler Ball League",
@@ -29,7 +29,7 @@ describe('league:LeagueParsing', function() {
 
         var incomingCopy = angular.copy(incomingLeagueValue);
 
-        var league = LeagueTransformer(incomingLeagueValue);
+        var league = LeagueTransformer(incomingLeagueValue, Restangular, BOWLING_ROUTES);
 
         expect(league).toBeDefined();
 
@@ -45,9 +45,9 @@ describe('league:LeagueParsing', function() {
         expect(league.handicapPercentage).toBe(incomingCopy.handicap_percentage);
         expect(league.teams).toBeDefined();
         expect(league.weeks).toBeDefined();
-    });
+    }));
 
-    it('should verify the outgoing field values', function() {
+    it('should verify the outgoing field values', inject(function(Restangular, BOWLING_ROUTES) {
         var incomingLeagueValue = {
             "id": 3,
             "name": "Polar Bowler Ball League",
@@ -63,7 +63,7 @@ describe('league:LeagueParsing', function() {
             "weeks": []
         };
 
-        var league = LeagueTransformer(incomingLeagueValue);
+        var league = LeagueTransformer(incomingLeagueValue, Restangular, BOWLING_ROUTES);
 
         expect(league).toBeDefined();
         league.startDate = new Date(2015, 11, 4);
@@ -104,6 +104,6 @@ describe('league:LeagueParsing', function() {
         expect(outgoingLeagueValue.handicap_max).toBe(leagueCopy.handicapMax);
         expect(outgoingLeagueValue.handicap_percentage).toBe(leagueCopy.handicapPercentage);
 
-    });
+    }));
 
 });

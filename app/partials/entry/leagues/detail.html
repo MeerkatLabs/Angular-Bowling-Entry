@@ -34,8 +34,8 @@
           <md-item ng-repeat="week in leagueController.league.weeks | orderBy:'date'">
               <md-item-content>
                   <div class="md-tile-content">
-                      <h3>{{week.date}}</h3>
-                      <p><a ui-sref="^.week.details({weekId:week.id})">Week Details</a></p>
+                      <h3>{{week.date | date: 'MM/dd/yyyy'}}</h3>
+                      <p><a ui-sref="^.week.details({weekId:week.weekNumber})">Week Details</a></p>
                   </div>
               </md-item-content>
               <md-divider ng-if="!$last"></md-divider>
