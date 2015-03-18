@@ -75,7 +75,7 @@ angular.module('bowling.entry.core')
          * An array or a single week to create.
          * @param {{}[]|{}} weeks
          */
-        LeagueMixin.createWeeks = function(weeks) {
+        LeagueMixin.editWeeks = function(weeks) {
 
             var weeksCollection = weeks;
             if (!angular.isArray(weeks)) {
@@ -84,13 +84,8 @@ angular.module('bowling.entry.core')
 
             var promises = [];
 
-            var route = this.all(BOWLING_ROUTES.WEEK);
-
             weeksCollection.forEach(function(week) {
-                promises.push(route.post({
-                    week_number: week.weekNumber,
-                    date: $filter('date')(week.date, 'yyyy-MM-dd')
-                }));
+                promises.push(week.put());
             });
 
             return $q.all(promises);

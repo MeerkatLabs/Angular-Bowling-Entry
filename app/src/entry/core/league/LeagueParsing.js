@@ -28,7 +28,7 @@ var LeagueTransformer = function(element, Restangular, BOWLING_ROUTES) {
     element.handicapPercentage = element.handicap_percentage;
 
     if (element.weeks && angular.isArray(element.weeks)) {
-        Restangular.restangularizeCollection(null, element.weeks, BOWLING_ROUTES.WEEK);
+        Restangular.restangularizeCollection(element, element.weeks, BOWLING_ROUTES.WEEK);
     }
 
     delete element.start_date;
