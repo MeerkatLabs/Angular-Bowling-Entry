@@ -3,13 +3,13 @@
  */
 describe('league:team:bowler:CreateBowlerController', function() {
 
-    var httpBackend;
+    var httpBackend, team;
 
     var bowlerCreationRegExp = new RegExp('/bowlers/$');
 
     beforeEach(module('bowling.entry.core'));
 
-    beforeEach(inject(function(_$httpBackend_, Restangular) {
+    beforeEach(inject(function(_$httpBackend_, Restangular, BOWLING_ROUTES) {
 
         $httpBackend = _$httpBackend_;
 
@@ -20,11 +20,11 @@ describe('league:team:bowler:CreateBowlerController', function() {
             return [201, data];
         });
 
-        $httpBackend.whenGET(new RegExp('/teams/1/$')).respond({
+        team = Restangular.restangularizeElement(null, {
             id: 1,
             name: 'Team Name',
             bowlers: []
-        });
+        }, BOWLING_ROUTES.TEAM);
 
     }));
 
@@ -36,28 +36,15 @@ describe('league:team:bowler:CreateBowlerController', function() {
 
     it('should define the required values in the scope', inject(function($controller) {
 
-        var team = jasmine.createSpyObj('team', ['all']);
         var controller = $controller('CreateBowlerController', {'team': team}, {});
 
         expect(controller.bowler).toBeDefined();
 
     }));
 
-    it('should submit the newly created object', inject(function($controller, $state, Restangular) {
+    it('should submit the newly created object', inject(function($controller, $state) {
 
         spyOn($state, 'go');
-
-        $httpBackend.expectGET(new RegExp('/teams/1/$'));
-
-        var team;
-        Restangular.one('teams', 1).get().then(function(_team) {
-            team = _team;
-        });
-
-        $httpBackend.flush();
-
-        expect(team).toBeDefined();
-        expect(team.createBowler).toBeDefined();
 
         var controller = $controller('CreateBowlerController', {'team': team}, {});
 

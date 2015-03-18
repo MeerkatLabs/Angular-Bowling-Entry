@@ -11,7 +11,7 @@ describe('league:substitute:CreateSubstituteController', function() {
 
     beforeEach(module('bowling.entry.core'));
 
-    beforeEach(inject(function(_$httpBackend_, Restangular) {
+    beforeEach(inject(function(_$httpBackend_, Restangular, BOWLING_ROUTES) {
 
         $httpBackend = _$httpBackend_;
 
@@ -25,7 +25,7 @@ describe('league:substitute:CreateSubstituteController', function() {
             weeks: []
         };
 
-        Restangular.restangularizeElement(null, leagueDefinition, 'league');
+        Restangular.restangularizeElement(null, leagueDefinition, BOWLING_ROUTES.LEAGUE);
 
         $httpBackend.whenPOST(substitutePostRegExp).respond(function(method, url, data, headers) {
             console.log(data);

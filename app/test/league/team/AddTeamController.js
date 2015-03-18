@@ -5,25 +5,23 @@ describe('league:team:AddTeamController', function() {
 
     var httpBackend, leagueDefinition;
 
-    var leagueGetRegExp = new RegExp('/league/1/$');
     var teamPostRegExp = new RegExp('/league/1/teams/$');
 
     beforeEach(module('bowling.entry.core'));
 
-    beforeEach(inject(function(_$httpBackend_, Restangular) {
+    beforeEach(inject(function(_$httpBackend_, Restangular, BOWLING_ROUTES) {
 
         $httpBackend = _$httpBackend_;
 
-        leagueDefinition = {
+        leagueDefinition = Restangular.restangularizeElement(null, {
             id: 1,
             name: 'League Name',
             teams: []
-        };
+        }, BOWLING_ROUTES.LEAGUE);
 
         Restangular.setRequestSuffix('/');
         Restangular.setBaseUrl('http://localhost/api');
 
-        $httpBackend.whenGET(leagueGetRegExp).respond(leagueDefinition);
         $httpBackend.whenPOST(teamPostRegExp).respond(function(method, url, data, headers) {
             console.log('data', data);
             return [200, data ]
@@ -45,22 +43,11 @@ describe('league:team:AddTeamController', function() {
 
     }));
 
-    it('should submit the created object', inject(function($controller, $state, Restangular) {
+    it('should submit the created object', inject(function($controller, $state) {
 
         spyOn($state, 'go');
 
-        $httpBackend.expectGET(leagueGetRegExp);
-
-        var league;
-        Restangular.one('league', 1).get().then(function(_league) {
-            league = _league;
-        });
-
-        $httpBackend.flush();
-
-        expect(league).toBeDefined();
-
-        var controller = $controller('AddTeamController', {'league': league}, {});
+        var controller = $controller('AddTeamController', {'league': leagueDefinition}, {});
 
         $httpBackend.expectPOST(teamPostRegExp);
 

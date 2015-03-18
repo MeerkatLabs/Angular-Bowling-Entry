@@ -9,20 +9,19 @@ describe('league:team:bowler:EditBowlerController', function() {
 
     beforeEach(module('bowling.entry.core'));
 
-    beforeEach(inject(function(_$httpBackend_, Restangular) {
+    beforeEach(inject(function(_$httpBackend_, Restangular, BOWLING_ROUTES) {
 
         $httpBackend = _$httpBackend_;
 
-        bowlerDefinition = {
+        bowlerDefinition = Restangular.restangularizeElement(null, {
             id: 1,
             name: 'Bowler Name',
             handicap: 23
-        };
+        }, BOWLING_ROUTES.BOWLER);
 
         Restangular.setRequestSuffix('/');
         Restangular.setBaseUrl('http://localhost/api');
 
-        $httpBackend.whenGET(bowlerGetRegExp).respond(bowlerDefinition);
         $httpBackend.whenPUT(bowlerGetRegExp).respond(function(method, url, data, headers) {
             return [200, data ]
         });
@@ -44,22 +43,11 @@ describe('league:team:bowler:EditBowlerController', function() {
 
     }));
 
-    it('should submit the edited object', inject(function($controller, $state, Restangular) {
+    it('should submit the edited object', inject(function($controller, $state) {
 
         spyOn($state, 'go');
 
-        $httpBackend.expectGET(new RegExp('/bowlers/1/$'));
-
-        var bowler;
-        Restangular.one('bowlers', 1).get().then(function(_bowler) {
-            bowler = _bowler;
-        });
-
-        $httpBackend.flush();
-
-        expect(bowler).toBeDefined();
-
-        var controller = $controller('EditBowlerController', {'bowler': bowler}, {});
+        var controller = $controller('EditBowlerController', {'bowler': bowlerDefinition}, {});
 
         controller.submit();
 

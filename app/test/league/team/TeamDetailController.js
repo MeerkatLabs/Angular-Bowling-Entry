@@ -7,15 +7,15 @@ describe('league:team:AddTeamController', function() {
 
     beforeEach(module('bowling.entry.core'));
 
-    beforeEach(function() {
+    beforeEach(inject(function(Restangular, BOWLING_ROUTES) {
 
-        teamDefinition = {
+        teamDefinition = Restangular.restangularizeElement(null, {
             id: 1,
             name: 'Team Name',
             bowlers: []
-        };
+        }, BOWLING_ROUTES.TEAM);
 
-    });
+    }));
 
     it('should define the required values in the scope', inject(function($controller) {
 

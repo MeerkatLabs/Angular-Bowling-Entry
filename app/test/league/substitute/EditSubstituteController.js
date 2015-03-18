@@ -11,7 +11,7 @@ describe('league:substitute:EditSubstituteController', function() {
 
     beforeEach(module('bowling.entry.core'));
 
-    beforeEach(inject(function(_$httpBackend_, Restangular) {
+    beforeEach(inject(function(_$httpBackend_, Restangular, BOWLING_ROUTES) {
 
         $httpBackend = _$httpBackend_;
 
@@ -25,7 +25,7 @@ describe('league:substitute:EditSubstituteController', function() {
 
         };
 
-        Restangular.restangularizeElement(null, substituteDefinition, 'substitute');
+        Restangular.restangularizeElement(null, substituteDefinition, BOWLING_ROUTES.SUBSTITUTE);
 
         $httpBackend.whenPUT(substitutePostRegExp).respond(function(method, url, data, headers) {
             submittedSubstitute = JSON.parse(data);
