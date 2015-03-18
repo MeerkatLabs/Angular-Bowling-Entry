@@ -32,7 +32,7 @@ angular.module('bowling.entry.core')
                 url: '/scoresheet',
                 templateUrl: 'partials/entry/leagues/weeks/matches/detail.html',
                 title: 'Score Sheet',
-                controller: 'ScoresheetController',
+                controller: 'MatchDetailController',
                 controllerAs: 'scoreController'
             });
 
