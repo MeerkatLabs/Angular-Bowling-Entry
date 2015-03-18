@@ -8,6 +8,14 @@ var LeagueService = function($filter, Restangular, BOWLING_ROUTES) {
     var currentLeague = null;
 
     /**
+     * Update the league cache when editing occurs.
+     * @param league
+     */
+    LeagueService.setCurrentLeague = function(league) {
+        currentLeague = league;
+    };
+
+    /**
      * Cache the league that is currently being worked on.
      * @returns {{}}
      */
@@ -20,10 +28,7 @@ var LeagueService = function($filter, Restangular, BOWLING_ROUTES) {
      * @param {{}} leagueConfiguration
      */
     LeagueService.createLeague = function(leagueConfiguration) {
-        return Restangular.all(BOWLING_ROUTES.LEAGUE).post(leagueConfiguration).then(function(newLeague) {
-            currentLeague = newLeague;
-            return currentLeague;
-        });
+        return Restangular.all(BOWLING_ROUTES.LEAGUE).post(leagueConfiguration);
     };
 
     /**

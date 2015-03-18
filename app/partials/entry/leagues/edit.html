@@ -1,0 +1,50 @@
+<form ng-submit="editLeague.submit()">
+
+    <md-input-container>
+        <label>Name</label>
+        <input ng-model="editLeague.league.name" type="text">
+    </md-input-container>
+
+    <md-input-container>
+        <label>Start Date</label>
+        <input ng-model="editLeague.league.startDate" type="date">
+    </md-input-container>
+
+    <md-input-container>
+        <label>Number of Weeks</label>
+        <input ng-model="editLeague.league.numberOfWeeks" type="number">
+    </md-input-container>
+
+    <md-input-container>
+        <label>Number of Games</label>
+        <input ng-model="editLeague.league.numberOfGames" type="number">
+    </md-input-container>
+
+    <md-input-container>
+        <label>Players Per Team</label>
+        <input ng-model="editLeague.league.playersPerTeam" type="number">
+    </md-input-container>
+
+    <md-input-container>
+        <label>Points Per Game</label>
+        <input ng-model="editLeague.league.pointsPerGame" type="number">
+    </md-input-container>
+
+    <md-input-container>
+        <label>Points For Totals</label>
+        <input ng-model="editLeague.league.pointsForTotals" type="number">
+    </md-input-container>
+
+    <md-input-container>
+        <label>Handicap Max</label>
+        <input ng-model="editLeague.league.handicapMax" type="number">
+    </md-input-container>
+
+    <md-input-container>
+        <label>Handicap Percentage</label>
+        <input ng-model="editLeague.league.handicapPercentage" type="number">
+    </md-input-container>
+
+    <md-button class="md-raised md-primary">Submit</md-button>
+
+</form>
