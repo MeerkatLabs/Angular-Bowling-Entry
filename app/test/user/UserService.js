@@ -3,12 +3,7 @@
  */
 describe('user::UserService', function() {
 
-    var $httpBackend;
-
-    var user = {
-        username: "username",
-        email: "email@example.com",
-    };
+    var $httpBackend, userHandler, user;
 
     var selfGetRegExp = new RegExp('/self/$');
 
@@ -19,7 +14,12 @@ describe('user::UserService', function() {
 
         Restangular.setRequestSuffix('/');
 
-        $httpBackend.whenGET(selfGetRegExp).respond(user);
+        user = {
+            username: "username",
+            email: "email@example.com"
+        };
+
+        userHandler = $httpBackend.whenGET(selfGetRegExp).respond(user);
 
     }));
 
@@ -94,26 +94,81 @@ describe('user::UserService', function() {
 
     it('should broadcast the user defined and user cleared method', inject(function(UserService, USER_EVENTS, $rootScope) {
 
-        var $scope = $rootScope.$new();
-
         spyOn($rootScope, '$broadcast');
 
         $httpBackend.expectGET(selfGetRegExp);
 
-        var user;
+        var user = null;
         UserService.getUser().then(function(_user) {
             user = _user;
         });
 
         $httpBackend.flush();
 
-        expect(user).toBeDefined();
         expect(user).not.toBeNull();
         expect($rootScope.$broadcast).toHaveBeenCalledWith(USER_EVENTS.USER_DEFINED, user);
 
         UserService.clearUser();
 
         expect($rootScope.$broadcast).toHaveBeenCalledWith(USER_EVENTS.USER_CLEARED);
+
+    }));
+
+    it('should handle self fetching errors without blocking future calls', inject(function(UserService, $rootScope) {
+        userHandler.respond(500, {
+            error: 'SOme Error Message'
+        });
+
+        $httpBackend.expectGET(selfGetRegExp);
+
+        var result = UserService.getUser();
+
+        var error = null;
+        var localUser = null;
+        result.then(function(_user) {
+            // This should not be called, as the above should generate an error.
+            localUser = _user;
+        }).catch(function(_error) {
+            error = _error;
+        });
+
+        $httpBackend.flush();
+
+        expect(localUser).toBeNull();
+        expect(error).not.toBeNull();
+
+        expect(UserService.isUserDefined()).not.toBeTruthy();
+
+        // Verify that can execute the get again without being blocked.
+        userHandler.respond(200, user);
+
+        $httpBackend.expectGET(selfGetRegExp);
+
+        result = UserService.getUser();
+
+        localUser = null;
+        error = null;
+        result.then(function(_user) {
+            localUser = _user;
+        }).catch(function(_error) {
+            error = _error;
+        });
+
+        $httpBackend.flush();
+
+        expect(localUser).not.toBeNull();
+        expect(error).toBeNull();
+        expect(UserService.isUserDefined()).toBeTruthy();
+
+        // Just verify that the http is not getting hit again.
+        localUser = null;
+        UserService.getUser().then(function(_user) {
+            localUser = _user;
+        });
+
+        // Keep forgetting to put this in order to resolve the promises.
+        $rootScope.$apply();
+        expect(localUser).not.toBeNull();
 
     }));
 

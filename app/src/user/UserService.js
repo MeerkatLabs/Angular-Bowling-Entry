@@ -19,10 +19,20 @@ var UserService = function($q, $rootScope, Restangular, USER_EVENTS) {
      */
     UserService.getUser = function() {
         if (deferred === null) {
-            deferred = Restangular.one('self').get().then(function(user) {
+
+            var _deferred = Restangular.one('self').get().then(function(user) {
+                // After resolved, replace the cache with the temporary value.
+                deferred = _deferred;
                 $rootScope.$broadcast(USER_EVENTS.USER_DEFINED, user);
                 return user;
+            }).catch(function(message) {
+                console.log('Error fetching user: ' + message);
+                return $q.reject(message);
             });
+
+            // Until the user has been resolved, return a temporary value.
+            return _deferred;
+
         }
 
         return deferred;
