@@ -1,7 +1,7 @@
 /**
  * Controller responsible for editing a bowlers details.
  */
-var EditBowlerController = function($state, bowler) {
+var EditBowlerController = function($state, team, bowler) {
 
     var controller = this;
 
@@ -15,10 +15,16 @@ var EditBowlerController = function($state, bowler) {
         });
     };
 
+    controller.makeBowlerSub = function() {
+        team.moveBowlerToSubstitute(bowler).then(function() {
+            $state.go('^.^.detail');
+        });
+    };
+
 };
 
 angular.module('bowling.entry.core')
-    .controller('EditBowlerController', ['$state', 'bowler', EditBowlerController])
+    .controller('EditBowlerController', ['$state', 'team', 'bowler', EditBowlerController])
     .config(['$stateProvider', function($stateProvider) {
 
         $stateProvider.state('bowling.league.team.bowler.edit', {

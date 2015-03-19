@@ -44,6 +44,31 @@ angular.module('bowling.entry.core')
             });
         };
 
+        /**
+         * Send the remove bowler data to the server, and then remove the bowler from the list of bowlers on the team.
+         * @param bowler
+         * @returns {*}
+         */
+        TeamMixin.moveBowlerToSubstitute = function(bowler) {
+            var team = this;
+            return bowler.put({removeTeam: true}).then(function(bowler) {
+
+                var bowlerIndex = -1;
+
+                team.bowlers.forEach(function(_bowler, index) {
+                    if (bowler.id == _bowler.id) {
+                        bowlerIndex = index;
+                    }
+                });
+
+                if (bowlerIndex !== -1) {
+                    team.bowlers.splice(bowlerIndex, 1);
+                }
+
+                return bowler;
+            });
+        };
+
         // Notify Restangular to override all of the models of route teams
         Restangular.extendModel(BOWLING_ROUTES.TEAM, function(model) {
             angular.extend(model, TeamMixin);
