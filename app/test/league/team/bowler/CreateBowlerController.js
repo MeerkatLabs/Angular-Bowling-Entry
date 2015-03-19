@@ -3,7 +3,7 @@
  */
 describe('league:team:bowler:CreateBowlerController', function() {
 
-    var httpBackend, team;
+    var $httpBackend, team;
 
     var bowlerCreationRegExp = new RegExp('/bowlers/$');
 
@@ -56,6 +56,28 @@ describe('league:team:bowler:CreateBowlerController', function() {
         $httpBackend.flush();
 
         expect($state.go).toHaveBeenCalled();
+
+    }));
+
+    it('should not change states when adding another', inject(function($controller, $state, $mdToast) {
+
+        spyOn($state, 'go');
+        spyOn($mdToast, 'show');
+
+        var controller = $controller('CreateBowlerController', {'team': team}, {});
+
+        controller.bowler.name = 'New Bowler Name';
+        controller.bowler.handicap = 34;
+
+        controller.submit(true);
+
+        $httpBackend.flush();
+
+        expect($state.go).not.toHaveBeenCalled();
+        expect($mdToast.show).toHaveBeenCalled();
+
+        expect(controller.bowler.name).toBe('');
+        expect(controller.bowler.handicap).toBeNull();
 
     }));
 

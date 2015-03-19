@@ -1,7 +1,6 @@
 <h1>Create Bowler</h1>
 
-<form ng-submit="bowlerController.submit()">
-
+<div>
     <md-input-container>
         <label for="name">Name</label>
         <input id="name" ng-model="bowlerController.bowler.name" type="text" required>
@@ -12,6 +11,7 @@
         <input id="handicap" ng-model="bowlerController.bowler.handicap" type="number">
     </md-input-container>
 
-    <md-button class="md-raised md-primary">Add Bowler</md-button>
+    <md-button class="md-raised md-primary" ng-click="bowlerController.submit()">Add Bowler</md-button>
 
-</form>
+    <md-button class="md-raised md-primary" ng-click="bowlerController.submit(true)">Add and Add Another</md-button>
+</div>
