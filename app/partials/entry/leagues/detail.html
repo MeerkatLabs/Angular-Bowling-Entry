@@ -2,6 +2,9 @@
 <p>League Details: {{ leagueController.league.name }}</p>
 
 <p><a ui-sref="^.edit">Edit</a></p>
+<md-button ng-click="leagueController.deleteLeague()" class="md-warn md-raised md-hue-2">
+    Delete League
+</md-button>
 
 <div layout="row">
 
