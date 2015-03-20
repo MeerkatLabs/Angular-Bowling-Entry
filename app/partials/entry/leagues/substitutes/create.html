@@ -3,13 +3,13 @@
 <form ng-submit="subController.submit()">
 
     <md-input-container>
-        <label>Name</label>
-        <input ng-model="subController.substitute.name" type="text">
+        <label for="name">Name</label>
+        <input id="name" ng-model="subController.substitute.name" type="text">
     </md-input-container>
 
     <md-input-container>
-        <label>Handicap</label>
-        <input ng-model="subController.substitute.handicap" type="number">
+        <label for="average">Average</label>
+        <input id="average" ng-model="subController.substitute.average" type="number">
     </md-input-container>
 
     <md-button class="md-raised md-primary">Submit</md-button>

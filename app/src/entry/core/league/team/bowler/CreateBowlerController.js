@@ -29,7 +29,7 @@ var CreateBowlerController = function($state, $mdToast, team) {
 
     var resetForm = function() {
         controller.bowler.name = '';
-        controller.bowler.handicap = null;
+        controller.bowler.average = null;
     };
 
     resetForm();

@@ -26,6 +26,7 @@ var ScoreSheetDirectiveFactory = function() {
             */
 
             var modelValueBase = {};
+            var league = $scope.league();
 
             ngModelController.$formatters.push(function(modelValue) {
 
@@ -40,7 +41,7 @@ var ScoreSheetDirectiveFactory = function() {
                     var games = [];
 
                     var total = 0;
-                    for (var gameIndex = 0; gameIndex < $scope.league().numberOfGames; ++gameIndex) {
+                    for (var gameIndex = 0; gameIndex < league.numberOfGames; ++gameIndex) {
                         var gameTotal = value.games[gameIndex].total;
                         games.push(gameTotal);
                         total += gameTotal;
@@ -49,6 +50,7 @@ var ScoreSheetDirectiveFactory = function() {
                     viewObject.bowlers.push({
                         name: value.name,
                         handicap: value.handicap,
+                        average: value.average,
                         games: games,
                         type: value.type,
                         total: total,
@@ -78,7 +80,7 @@ var ScoreSheetDirectiveFactory = function() {
                 $scope.seriesTotal = 0;
                 var bowlerLength = $scope.bowlers.length;
 
-                for (var gameIndex = 0; gameIndex < $scope.league().numberOfGames; ++gameIndex) {
+                for (var gameIndex = 0; gameIndex < league.numberOfGames; ++gameIndex) {
                     $scope.gameLabels.push(gameIndex+1);
 
                     var subTotal = 0;
@@ -101,7 +103,6 @@ var ScoreSheetDirectiveFactory = function() {
                 var handicap = 0;
                 $scope.bowlers.forEach(function(bowler) {
                     if (bowler.calculateHandicap) {
-                        var league = $scope.league();
                         bowler.average = Math.floor(bowler.total / league.numberOfGames);
                         bowler.handicap = Math.floor((league.handicapPercentage / 100.0) * (league.handicapMax - bowler.average));
                         if (bowler.handicap < 0) {
@@ -112,7 +113,7 @@ var ScoreSheetDirectiveFactory = function() {
                     handicap += (bowler.handicap !== null ? bowler.handicap : 0);
                 });
                 $scope.teamHandicap = handicap;
-                $scope.seriesTotalHandicap = $scope.teamHandicap * $scope.league().numberOfGames;
+                $scope.seriesTotalHandicap = $scope.teamHandicap * league.numberOfGames;
                 $scope.seriesTotal = $scope.seriesTotalHandicap + $scope.seriesScratch;
 
                 $scope.subTotals.forEach(function(subTotal) {
@@ -124,7 +125,7 @@ var ScoreSheetDirectiveFactory = function() {
 
                 // The only thing that should be updated is the game values.
                 viewValue.bowlers.forEach(function(bowler, index) {
-                    for (var gameIndex = 0; gameIndex < $scope.league().numberOfGames; ++gameIndex) {
+                    for (var gameIndex = 0; gameIndex < league.numberOfGames; ++gameIndex) {
                         modelValueBase.bowlers[index].games[gameIndex].total = bowler.games[gameIndex];
                     }
                 });

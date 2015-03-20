@@ -7,7 +7,7 @@ var CreateSubstituteController = function($state, league) {
 
     controller.substitute = {
         name: 'Bowler Name',
-        handicap: 50
+        average: 150
     };
 
     controller.submit = function() {

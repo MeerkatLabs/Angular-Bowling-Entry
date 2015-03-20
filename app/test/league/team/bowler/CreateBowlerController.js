@@ -49,7 +49,7 @@ describe('league:team:bowler:CreateBowlerController', function() {
         var controller = $controller('CreateBowlerController', {'team': team}, {});
 
         controller.bowler.name = 'New Bowler Name';
-        controller.bowler.handicap = 34;
+        controller.bowler.average = 34;
 
         controller.submit();
 
@@ -67,7 +67,7 @@ describe('league:team:bowler:CreateBowlerController', function() {
         var controller = $controller('CreateBowlerController', {'team': team}, {});
 
         controller.bowler.name = 'New Bowler Name';
-        controller.bowler.handicap = 34;
+        controller.bowler.average = 34;
 
         controller.submit(true);
 
@@ -77,7 +77,7 @@ describe('league:team:bowler:CreateBowlerController', function() {
         expect($mdToast.show).toHaveBeenCalled();
 
         expect(controller.bowler.name).toBe('');
-        expect(controller.bowler.handicap).toBeNull();
+        expect(controller.bowler.average).toBeNull();
 
     }));
 

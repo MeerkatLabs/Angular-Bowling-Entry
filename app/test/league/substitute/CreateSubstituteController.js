@@ -41,7 +41,7 @@ describe('league:substitute:CreateSubstituteController', function() {
 
         expect(controller.substitute).toBeDefined();
         expect(controller.substitute.name).toBeDefined();
-        expect(controller.substitute.handicap).toBeDefined();
+        expect(controller.substitute.average).toBeDefined();
 
     }));
 
@@ -59,7 +59,7 @@ describe('league:substitute:CreateSubstituteController', function() {
 
         expect(submittedSubstitute).toBeDefined();
         expect(submittedSubstitute.name).toBe(controller.substitute.name);
-        expect(submittedSubstitute.handicap).toBe(controller.substitute.handicap);
+        expect(submittedSubstitute.average).toBe(controller.substitute.average);
 
         expect($state.go).toHaveBeenCalled();
 
