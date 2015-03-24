@@ -67,7 +67,33 @@ var MatchTransformer = function(element) {
      */
     var _MatchTransformer_Team_Bowler_Game_Frame = function(frame) {
         frame.frameNumber = frame.frame_number;
+
+        frame.throws = [];
+        frame.throws.push({
+            type: frame.throw1_type,
+            value: frame.throw1_value
+        });
+
+        if (frame.throw2_type) {
+            frame.throws.push({
+                type: frame.throw2_type,
+                value: frame.throw2_value
+            });
+            if (frame.throw3_type) {
+                frame.throws.push({
+                    type: frame.throw3_type,
+                    value: frame.throw3_value
+                });
+            }
+        }
+
         delete frame.frame_number;
+        delete frame.throw1_type;
+        delete frame.throw1_value;
+        delete frame.throw2_type;
+        delete frame.throw2_value;
+        delete frame.throw3_type;
+        delete frame.throw3_value;
     };
 
     if (element.team1) {
@@ -104,7 +130,25 @@ var MatchInterceptor = function(match) {
 
     var _MatchInterceptor_Team_Bowler_Game_Frame = function(frame) {
         frame.frame_number = frame.frameNumber;
+
+        if (frame.throws.length) {
+            frame.throw1_type = frame.throws[0].type;
+            frame.throw1_value = frame.throws[0].value;
+
+            if (frame.throws.length > 1) {
+                frame.throw2_type = frame.throws[1].type;
+                frame.throw2_value = frame.throws[1].value;
+
+                if (frame.throws.length > 2) {
+                    frame.throw3_type = frame.throws[2].type;
+                    frame.throw3_value = frame.throws[3].value;
+                }
+            }
+
+        }
+
         delete frame.frameNumber;
+        delete frame.throws;
     };
 
     if (match.team1) {

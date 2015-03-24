@@ -12,15 +12,23 @@ describe('league:matches:games:frames:FrameEditDirective', function() {
                     frames: [
                         {
                             frame_number: 1,
-                            throws: ''
+                            throws: []
                         },
                         {
                             frame_number: 2,
-                            throws: '5,4'
+                            throws: [
+                                {
+                                    type: 'T',
+                                    value: 5
+                                }, {
+                                    type: 'T',
+                                    value: 4
+                                }
+                            ]
                         },
                         {
                             frame_number: 10,
-                            throws: ''
+                            throws: []
                         }
                     ]
                 }
@@ -203,7 +211,8 @@ describe('league:matches:games:frames:FrameEditDirective', function() {
             scope.throwBall(firstThrow);
 
             expect(frame.throws.length).toBe(1);
-            expect(frame.throws[0]).toBe(firstThrow);
+            expect(frame.throws[0].value).toBe(firstThrow);
+            expect(frame.throws[0].type).toBe('T');
 
             expect(scope.isThrowDisabled(0)).not.toBeTruthy();
             expect(scope.isThrowDisabled(1)).not.toBeTruthy();
@@ -228,8 +237,8 @@ describe('league:matches:games:frames:FrameEditDirective', function() {
 
             scope.throwBall(secondThrow);
             expect(frame.throws.length).toBe(2);
-            expect(frame.throws[0]).toBe(firstThrow);
-            expect(frame.throws[1]).toBe(secondThrow);
+            expect(frame.throws[0].value).toBe(firstThrow);
+            expect(frame.throws[1].value).toBe(secondThrow);
 
             expect(scope.isThrowDisabled(0)).toBeTruthy();
             expect(scope.isThrowDisabled(1)).toBeTruthy();
@@ -255,7 +264,8 @@ describe('league:matches:games:frames:FrameEditDirective', function() {
             scope.remainder();
 
             expect(frame.throws.length).toBe(1);
-            expect(frame.throws[0]).toBe(10);
+            expect(frame.throws[0].value).toBe(10);
+            expect(frame.throws[0].type).toBe('T');
 
             expect(scope.isThrowDisabled(0)).toBeTruthy();
             expect(scope.isThrowDisabled(1)).toBeTruthy();
@@ -282,8 +292,8 @@ describe('league:matches:games:frames:FrameEditDirective', function() {
             scope.remainder();
 
             expect(frame.throws.length).toBe(2);
-            expect(frame.throws[0]).toBe(6);
-            expect(frame.throws[1]).toBe(4);
+            expect(frame.throws[0].value).toBe(6);
+            expect(frame.throws[1].value).toBe(4);
 
             expect(scope.isThrowDisabled(0)).toBeTruthy();
             expect(scope.isThrowDisabled(1)).toBeTruthy();
@@ -312,7 +322,7 @@ describe('league:matches:games:frames:FrameEditDirective', function() {
             scope.deleteThrow();
 
             expect(frame.throws.length).toBe(1);
-            expect(frame.throws[0]).toBe(6);
+            expect(frame.throws[0].value).toBe(6);
 
             expect(scope.isThrowDisabled(0)).not.toBeTruthy();
             expect(scope.isThrowDisabled(1)).not.toBeTruthy();
@@ -493,7 +503,9 @@ describe('league:matches:games:frames:FrameEditDirective', function() {
 
             scope.remainder();
 
-            expect(scope.frame.throws).toEqual([1,9,10]);
+            expect(scope.frame.throws[0].value).toBe(1);
+            expect(scope.frame.throws[1].value).toBe(9);
+            expect(scope.frame.throws[2].value).toBe(10);
 
         });
 
@@ -532,7 +544,9 @@ describe('league:matches:games:frames:FrameEditDirective', function() {
             scope.remainder();
 
             expect(scope.frame.throws.length).toBe(3);
-            expect(scope.frame.throws).toEqual([10,9,1]);
+            expect(scope.frame.throws[0].value).toBe(10);
+            expect(scope.frame.throws[1].value).toBe(9);
+            expect(scope.frame.throws[2].value).toBe(1);
 
         });
 
