@@ -101,10 +101,9 @@ var MatchTransformer = function(element) {
     } else if (element.team2) {
         _MatchTransformer_Team(element.team2);
     }
+
+    return element;
 };
-
-
-
 
 var MatchInterceptor = function(match) {
     var _MatchInterceptor_Team = function(team) {
@@ -151,10 +150,26 @@ var MatchInterceptor = function(match) {
         delete frame.throws;
     };
 
+    console.log('Manipulating: ', match);
+
     if (match.team1) {
         _MatchInterceptor_Team(match.team1);
     } else if (match.team2) {
         _MatchInterceptor_Team(match.team2);
     }
+
+    console.log('Returning: ', match);
+    return match;
 };
 
+angular.module('bowling.entry.core')
+    .run(['$filter', 'Restangular', 'BOWLING_ROUTES', function($filter, Restangular, BOWLING_ROUTES) {
+        Restangular.addElementTransformer(BOWLING_ROUTES.MATCH, false, MatchTransformer);
+        Restangular.addRequestInterceptor(function(element, operation, what, url) {
+            if (what === BOWLING_ROUTES.MATCH && (operation === 'put' || operation === 'post')) {
+                return MatchInterceptor(element, $filter);
+            }
+
+            return element;
+        });
+    }]);
