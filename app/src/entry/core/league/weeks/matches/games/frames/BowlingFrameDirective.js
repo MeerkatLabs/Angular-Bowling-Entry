@@ -17,7 +17,7 @@ var BowlingFrameDirectiveFactory = function() {
             var foundFrame = null;
             for (var frameIndex = 0; frameIndex < game.frames.length; ++frameIndex) {
                 var myFrame = game.frames[frameIndex];
-                if (myFrame.frame_number == $scope.frameNumber()) {
+                if (myFrame.frameNumber == $scope.frameNumber()) {
                     foundFrame = myFrame;
                     break;
                 }

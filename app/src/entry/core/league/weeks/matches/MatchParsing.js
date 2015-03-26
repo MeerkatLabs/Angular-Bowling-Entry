@@ -40,6 +40,10 @@ var MatchTransformer = function(element) {
         game.gameNumber = game.game_number;
         delete game.game_number;
 
+        if (!angular.isDefined(game.frames)) {
+            game.frames = [];
+        }
+
         var frames = new Array(10);
         game.frames.forEach(function(frame) {
             _MatchTransformer_Team_Bowler_Game_Frame(frame);
@@ -51,8 +55,7 @@ var MatchTransformer = function(element) {
             if (!frame) {
                 frames[frameIndex] = {
                     frameNumber: frameIndex + 1,
-                    throws: [],
-                    splits: []
+                    throws: []
                 };
             }
         }
