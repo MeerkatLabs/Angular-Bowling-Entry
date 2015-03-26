@@ -172,17 +172,13 @@ var FrameEditDirectiveFactory = function() {
             var frameNumber = parseInt($scope.frameNumber());
 
             game.frames.forEach(function(frame) {
-                if (frame.frame_number == frameNumber) {
+                if (frame.frameNumber === frameNumber) {
                     editFrame = frame;
                 }
             });
 
             if (editFrame === null) {
-                editFrame = {
-                    frame_number: frameNumber,
-                    throws: []
-                };
-                game.frames.push(editFrame);
+                throw 'Frames should all have been defined by the parser';
             }
 
             $scope.frame = editFrame;

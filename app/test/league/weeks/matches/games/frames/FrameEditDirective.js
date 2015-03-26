@@ -11,11 +11,11 @@ describe('league:matches:games:frames:FrameEditDirective', function() {
                 {
                     frames: [
                         {
-                            frame_number: 1,
+                            frameNumber: 1,
                             throws: []
                         },
                         {
-                            frame_number: 2,
+                            frameNumber: 2,
                             throws: [
                                 {
                                     type: 'T',
@@ -27,7 +27,7 @@ describe('league:matches:games:frames:FrameEditDirective', function() {
                             ]
                         },
                         {
-                            frame_number: 10,
+                            frameNumber: 10,
                             throws: []
                         }
                     ]
@@ -63,7 +63,7 @@ describe('league:matches:games:frames:FrameEditDirective', function() {
         var scope = element.isolateScope();
 
         expect(scope.frame).toBeDefined();
-        expect(scope.frame.frame_number).toBe($rootScope.frameNumber);
+        expect(scope.frame.frameNumber).toBe($rootScope.frameNumber);
 
         expect(angular.isArray(scope.frame.throws)).toBeTruthy();
         expect(scope.frame.throws.length).toBe(0);
@@ -99,28 +99,10 @@ describe('league:matches:games:frames:FrameEditDirective', function() {
         var scope = element.isolateScope();
 
         expect(scope.frame).toBeDefined();
-        expect(scope.frame.frame_number).toBe($rootScope.frameNumber);
+        expect(scope.frame.frameNumber).toBe($rootScope.frameNumber);
 
         expect(angular.isArray(scope.frame.throws)).toBeTruthy();
         expect(scope.frame.throws.length).toBe(2);
-
-    });
-
-    it('should load frame 3 (with no data defined) correctly', function() {
-
-        $rootScope.frameNumber = 3;
-
-        var element = $compile('<frame-edit bowler="bowler" game-number="gameNumber" frame-number="frameNumber" />')($rootScope);
-
-        $rootScope.$digest();
-
-        var scope = element.isolateScope();
-
-        expect(scope.frame).toBeDefined();
-        expect(scope.frame.frame_number).toBe($rootScope.frameNumber);
-
-        expect(angular.isArray(scope.frame.throws)).toBeTruthy();
-        expect(scope.frame.throws.length).toBe(0);
 
     });
 
@@ -135,7 +117,7 @@ describe('league:matches:games:frames:FrameEditDirective', function() {
         var scope = element.isolateScope();
 
         expect(scope.frame).toBeDefined();
-        expect(scope.frame.frame_number).toBe($rootScope.frameNumber);
+        expect(scope.frame.frameNumber).toBe($rootScope.frameNumber);
 
         expect(angular.isArray(scope.frame.throws)).toBeTruthy();
         expect(scope.frame.throws.length).toBe(0);

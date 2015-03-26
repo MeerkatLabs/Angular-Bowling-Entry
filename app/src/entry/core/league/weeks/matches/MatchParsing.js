@@ -14,6 +14,7 @@ var MatchTransformer = function(element) {
      * @private
      */
     var _MatchTransformer_Team = function(team) {
+
         team.bowlers.forEach(function(bowler) {
             _MatchTransformer_Team_Bowler(bowler);
         });
@@ -98,7 +99,9 @@ var MatchTransformer = function(element) {
 
     if (element.team1) {
         _MatchTransformer_Team(element.team1);
-    } else if (element.team2) {
+    }
+
+    if (element.team2) {
         _MatchTransformer_Team(element.team2);
     }
 
@@ -107,55 +110,80 @@ var MatchTransformer = function(element) {
 
 var MatchInterceptor = function(match) {
     var _MatchInterceptor_Team = function(team) {
+
+        var modified = angular.copy(team);
+        modified.bowlers = [];
+
         team.bowlers.forEach(function(bowler) {
-            _MatchInterceptor_Team_Bowler(bowler);
+            modified.bowlers.push(_MatchInterceptor_Team_Bowler(bowler));
         });
+
+        return modified;
     };
 
     var _MatchInterceptor_Team_Bowler = function(bowler) {
+        var modified = angular.copy(bowler);
+        modified.games = [];
+
         bowler.games.forEach(function(game) {
-            _MatchInterceptor_Team_Bowler_Game(game);
+            modified.games.push(_MatchInterceptor_Team_Bowler_Game(game));
         });
+
+        return modified;
     };
 
     var _MatchInterceptor_Team_Bowler_Game = function(game) {
-        game.game_number = game.gameNumber;
-        delete game.gameNumber;
+
+        var modified = angular.copy(game);
+
+        modified.frames = [];
+
+        modified.game_number = modified.gameNumber;
+        delete modified.gameNumber;
 
         game.frames.forEach(function(frame) {
-            _MatchInterceptor_Team_Bowler_Game_Frame(frame);
+            modified.frames.push(_MatchInterceptor_Team_Bowler_Game_Frame(frame));
         });
+
+        return modified;
     };
 
     var _MatchInterceptor_Team_Bowler_Game_Frame = function(frame) {
-        frame.frame_number = frame.frameNumber;
+
+        var modified = angular.copy(frame);
+
+        modified.frame_number = frame.frameNumber;
 
         if (frame.throws.length) {
-            frame.throw1_type = frame.throws[0].type;
-            frame.throw1_value = frame.throws[0].value;
+            modified.throw1_type = frame.throws[0].type;
+            modified.throw1_value = frame.throws[0].value;
 
             if (frame.throws.length > 1) {
-                frame.throw2_type = frame.throws[1].type;
-                frame.throw2_value = frame.throws[1].value;
+                modified.throw2_type = frame.throws[1].type;
+                modified.throw2_value = frame.throws[1].value;
 
                 if (frame.throws.length > 2) {
-                    frame.throw3_type = frame.throws[2].type;
-                    frame.throw3_value = frame.throws[3].value;
+                    modified.throw3_type = frame.throws[2].type;
+                    modified.throw3_value = frame.throws[2].value;
                 }
             }
 
         }
 
-        delete frame.frameNumber;
-        delete frame.throws;
+        delete modified.frameNumber;
+        delete modified.throws;
+
+        return modified;
     };
 
     console.log('Manipulating: ', match);
 
     if (match.team1) {
-        _MatchInterceptor_Team(match.team1);
-    } else if (match.team2) {
-        _MatchInterceptor_Team(match.team2);
+        match.team1 = _MatchInterceptor_Team(match.team1);
+    }
+
+    if (match.team2) {
+        match.team2 = _MatchInterceptor_Team(match.team2);
     }
 
     console.log('Returning: ', match);
@@ -166,7 +194,7 @@ angular.module('bowling.entry.core')
     .run(['$filter', 'Restangular', 'BOWLING_ROUTES', function($filter, Restangular, BOWLING_ROUTES) {
         Restangular.addElementTransformer(BOWLING_ROUTES.MATCH, false, MatchTransformer);
         Restangular.addRequestInterceptor(function(element, operation, what, url) {
-            if (what === BOWLING_ROUTES.MATCH && (operation === 'put' || operation === 'post')) {
+            if (what === BOWLING_ROUTES.MATCH && (operation === 'put' || operation === 'post' || operation === 'patch')) {
                 return MatchInterceptor(element, $filter);
             }
 
