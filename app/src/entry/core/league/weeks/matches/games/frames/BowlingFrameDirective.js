@@ -10,10 +10,24 @@ var BowlingFrameDirectiveFactory = function() {
             frameNumber: '&',
             gameNumber: '&'
         },
-        link: function($scope, elem, attr) {
+        link: function($scope) {
+
+            var game = $scope.bowler().games[$scope.gameNumber() - 1];
+
+            var foundFrame = null;
+            for (var frameIndex = 0; frameIndex < game.frames.length; ++frameIndex) {
+                var myFrame = game.frames[frameIndex];
+                if (myFrame.frameNumber == $scope.frameNumber()) {
+                    foundFrame = myFrame;
+                    break;
+                }
+            }
+
+            if (foundFrame !== null) {
+                $scope.frame = foundFrame;
+            }
 
         }
-
     };
 
 };

@@ -1,5 +1,5 @@
 <div layout="column" flex>
-    <p>Throw 1: {{ frame.throws[0] }}</p>
-    <p>Throw 2: {{ frame.throws[1] }}</p>
-    <p ng-if="frameNumber() == 10">Throw 3: {{ frame.throws[2] }}</p>
+    <p>Throw 1: {{ frame.throws[0].value }}</p>
+    <p>Throw 2: {{ frame.throws[1].value }}</p>
+    <p ng-if="frameNumber() == 10">Throw 3: {{ frame.throws[2].value }}</p>
 </div>

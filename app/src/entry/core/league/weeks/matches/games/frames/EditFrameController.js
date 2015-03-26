@@ -11,8 +11,6 @@ var EditFrameController = function($state, $stateParams, league, week, match) {
 
     controller.submit = function() {
 
-        match.clean();
-
         match.patch(match).then(function() {
             $state.go('^.detail');
         });

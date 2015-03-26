@@ -11,7 +11,7 @@ var FrameEditDirectiveFactory = function() {
 
         $scope.throwBall = function(count) {
             if (!$scope.isThrowDisabled(count)) {
-                frame.throws.push(count);
+                frame.throws.push({ type: 'T', value: count});
             }
         };
 
@@ -28,10 +28,12 @@ var FrameEditDirectiveFactory = function() {
         $scope.isThrowDisabled = function(count) {
             if (frame.throws.length == 2) {
                 return true;
-            } else if (frame.throws.length === 1 && frame.throws[0] === 10) {
+            } else if (frame.throws.length === 1 && frame.throws[0].value === 10) {
                 return true;
+            } else if (frame.throws.length === 0) {
+                return false;
             } else {
-                return count > 10 - frame.throws[0];
+                return count > 10 - frame.throws[0].value;
             }
         };
 
@@ -45,16 +47,16 @@ var FrameEditDirectiveFactory = function() {
 
         $scope.remainder = function() {
             if (frame.throws.length === 0) {
-                frame.throws.push(10);
+                frame.throws.push({ type: 'T', value: 10});
             } else {
-                frame.throws.push(10 - frame.throws[0]);
+                frame.throws.push({ type: 'T', value: 10 - frame.throws[0].value});
             }
         };
 
         $scope.isRemainderDisabled = function() {
             if (frame.throws.length === 2) {
                 return true;
-            } else if (frame.throws.length && frame.throws[0] === 10) {
+            } else if (frame.throws.length && frame.throws[0].value === 10) {
                 return true;
             }
 
@@ -63,7 +65,7 @@ var FrameEditDirectiveFactory = function() {
 
         $scope.isSplitDisabled = function() {
             if (frame.throws.length === 1) {
-                return frame.throws[0] === 10;
+                return frame.throws[0].value === 10;
             }
 
             return true;
@@ -82,11 +84,11 @@ var FrameEditDirectiveFactory = function() {
         var calculateHelpers = function() {
             var result = frame.throws.length === 0;
 
-            if (frame.throws.length == 1 && frame.throws[0] == 10) {
+            if (frame.throws.length == 1 && frame.throws[0].value == 10) {
                 result = true;
             } else if (frame.throws.length == 2 && (
-                (frame.throws[0] == 10 && frame.throws[1] == 10) ||
-                (frame.throws[0] < 10 && frame.throws[0] + frame.throws[1] == 10))) {
+                (frame.throws[0].value == 10 && frame.throws[1].value == 10) ||
+                (frame.throws[0].value < 10 && frame.throws[0].value + frame.throws[1].value == 10))) {
                 result = true;
             }
             isFirstBall = result;
@@ -97,7 +99,7 @@ var FrameEditDirectiveFactory = function() {
             if (frame.throws.length == 1) {
                 result = true;
             } else if (frame.throws.length == 2) {
-                result = frame.throws[0] == 10 || (frame.throws[0] + frame.throws[1] == 10);
+                result = frame.throws[0].value == 10 || (frame.throws[0].value + frame.throws[1].value == 10);
             }
 
             canThrow = result;
@@ -110,7 +112,7 @@ var FrameEditDirectiveFactory = function() {
             if (isFirstBall) {
                 return false;
             } else if (canThrow) {
-                return count > 10 - frame.throws[frame.throws.length - 1];
+                return count > 10 - frame.throws[frame.throws.length - 1].value;
             }
 
             return true;
@@ -133,9 +135,9 @@ var FrameEditDirectiveFactory = function() {
 
             if (canThrow) {
                 if (isFirstBall) {
-                    frame.throws.push(10);
+                    frame.throws.push({ type: 'T', value: 10});
                 } else {
-                    frame.throws.push(10 - frame.throws[frame.throws.length-1]);
+                    frame.throws.push({ type: 'T', value: 10 - frame.throws[frame.throws.length-1].value});
                 }
             }
 
@@ -170,26 +172,13 @@ var FrameEditDirectiveFactory = function() {
             var frameNumber = parseInt($scope.frameNumber());
 
             game.frames.forEach(function(frame) {
-                if (frame.frame_number == frameNumber) {
+                if (frame.frameNumber === frameNumber) {
                     editFrame = frame;
                 }
             });
 
             if (editFrame === null) {
-                editFrame = {
-                    frame_number: frameNumber,
-                    throws: []
-                };
-                game.frames.push(editFrame);
-            } else {
-                var split = editFrame.throws.split(',');
-                editFrame.throws = [];
-                split.forEach(function(value) {
-                    var intValue = parseInt(value);
-                    if (!isNaN(intValue)) {
-                        editFrame.throws.push(intValue);
-                    }
-                });
+                throw 'Frames should all have been defined by the parser';
             }
 
             $scope.frame = editFrame;

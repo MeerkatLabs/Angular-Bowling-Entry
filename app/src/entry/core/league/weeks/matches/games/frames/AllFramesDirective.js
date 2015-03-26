@@ -8,9 +8,6 @@ var AllFramesDirectiveFactory = function() {
         scope: {
             team: '&',
             gameNumber: '&'
-        },
-        link: function($scope, elem, attr) {
-
         }
     };
 

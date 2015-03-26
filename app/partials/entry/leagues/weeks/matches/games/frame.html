@@ -1,2 +1,2 @@
-<p ng-if="!frame">{{ gameNumber() }}::{{ frameNumber() }}</p>
-<p ng-if="frame">{{ frame }}</p>
+<p ng-if="!frame">No Frame</p>
+<p ng-if="frame">{{ frame.throws[0].value }} - {{ frame.throws[1].value }}</p>
